@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif TC", "Songti TC", "PMingLiU", ui-serif, Georgia, serif;
+  --color-forest-950: #10201c;
+  --color-forest-900: #173129;
+  --color-forest-800: #22483b;
+  --color-forest-700: #2f5f4e;
+  --color-moss-500: #718d62;
+  --color-sand-50: #fbf8f0;
+  --color-sand-100: #f3eddf;
+  --color-sand-200: #e5dac3;
+  --color-sun-300: #f5cd82;
+  --color-sun-400: #eeb55a;
+  --color-sun-500: #d98a2b;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    background: #10201c;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    overflow-x: hidden;
+    background: #fbf8f0;
+    color: #173129;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: #eeb55a;
+    color: #10201c;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible {
+    outline: 3px solid #eeb55a;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .site-container {
+    width: min(100% - 2rem, 74rem);
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #d98a2b;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin-top: 0.8rem;
+    max-width: 16ch;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+  }
+
+  .section-copy {
+    color: #496058;
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  .glass-panel {
+    border: 1px solid rgb(255 255 255 / 0.22);
+    background: rgb(16 32 28 / 0.72);
+    box-shadow: 0 24px 70px rgb(6 18 15 / 0.24);
+    backdrop-filter: blur(18px);
+  }
+
+  .sun-button {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 999px;
+    background: #eeb55a;
+    padding: 0.78rem 1.25rem;
+    color: #10201c;
+    font-weight: 800;
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  .sun-button:hover {
+    transform: translateY(-2px);
+    background: #f5cd82;
+  }
+
+  .outline-button {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid rgb(255 255 255 / 0.38);
+    border-radius: 999px;
+    padding: 0.75rem 1.2rem;
+    color: white;
+    font-weight: 700;
+    transition: background 180ms ease, border-color 180ms ease;
+  }
+
+  .outline-button:hover {
+    border-color: rgb(255 255 255 / 0.7);
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  .paper-card {
+    border: 1px solid #e5dac3;
+    border-radius: 1.5rem;
+    background: rgb(255 255 255 / 0.78);
+  }
+}
+
+.hero-shade {
+  background:
+    linear-gradient(90deg, rgb(7 18 15 / 0.87) 0%, rgb(7 18 15 / 0.48) 45%, rgb(7 18 15 / 0.08) 75%),
+    linear-gradient(0deg, rgb(7 18 15 / 0.82) 0%, transparent 38%);
+}
+
+.grain::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.34'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.photo-frame {
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: #173129;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+
+.photo-frame:hover img {
+  transform: scale(1.035);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 650ms ease, transform 650ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

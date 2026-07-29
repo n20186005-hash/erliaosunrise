@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+const currentPath = Astro.url.pathname;
+---
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-white/0 transition-all duration-300">
+  <div class="site-container flex h-20 items-center justify-between">
+    <a href="/" class="flex items-center gap-3 text-white" aria-label="二寮日出指南首頁">
+      <span class="grid size-10 place-items-center rounded-full border border-white/25 bg-white/10 backdrop-blur">
+        <Icon name="sunrise" size={21} />
+      </span>
+      <span>
+        <strong class="block font-serif text-[1.05rem] tracking-wide">二寮日出</strong>
+        <span class="block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-white/60">Erliao Sunrise</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-7 text-sm font-bold text-white/80 lg:flex" aria-label="主要導覽">
+      <a class="transition hover:text-white" href={currentPath === '/' ? '#conditions' : '/#conditions'}>明早條件</a>
+      <a class="transition hover:text-white" href={currentPath === '/' ? '#guide' : '/#guide'}>觀日攻略</a>
+      <a class="transition hover:text-white" href={currentPath === '/' ? '#transport' : '/#transport'}>交通停車</a>
+      <a class="transition hover:text-white" href={currentPath === '/' ? '#photography' : '/#photography'}>攝影提示</a>
+      <a class="sun-button !min-h-10 !px-5 !py-2" href="https://www.google.com/maps/dir/?api=1&destination=22.9927444%2C120.4098726&travelmode=driving" target="_blank" rel="noopener noreferrer">
+        <Icon name="route" size={17} />
+        開始導航
+      </a>
+    </nav>
+
+    <button id="menu-button" class="grid size-11 place-items-center rounded-full border border-white/25 bg-black/10 text-white backdrop-blur lg:hidden" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="開啟選單">
+      <span data-menu-open><Icon name="menu" /></span>
+      <span data-menu-close class="hidden"><Icon name="close" /></span>
+    </button>
+  </div>
+
+  <nav id="mobile-nav" class="site-container mb-3 hidden rounded-3xl border border-white/15 bg-forest-950/95 p-3 text-white shadow-2xl backdrop-blur-xl lg:hidden" aria-label="行動版導覽">
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#conditions">明早條件</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#guide">觀日攻略</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#transport">交通停車</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#photography">攝影提示</a>
+    <a class="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-sun-400 px-4 py-3 font-extrabold text-forest-950" href="https://www.google.com/maps/dir/?api=1&destination=22.9927444%2C120.4098726&travelmode=driving" target="_blank" rel="noopener noreferrer">
+      <Icon name="route" size={18} />開始導航
+    </a>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector('#site-header');
+  const button = document.querySelector<HTMLButtonElement>('#menu-button');
+  const nav = document.querySelector<HTMLElement>('#mobile-nav');
+  const openIcon = button?.querySelector<HTMLElement>('[data-menu-open]');
+  const closeIcon = button?.querySelector<HTMLElement>('[data-menu-close]');
+
+  const updateHeader = () => {
+    header?.classList.toggle('bg-forest-950/92', window.scrollY > 24);
+    header?.classList.toggle('backdrop-blur-xl', window.scrollY > 24);
+    header?.classList.toggle('border-white/10', window.scrollY > 24);
+  };
+
+  button?.addEventListener('click', () => {
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isOpen));
+    nav?.classList.toggle('hidden', isOpen);
+    openIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    nav.classList.add('hidden');
+    button?.setAttribute('aria-expanded', 'false');
+    openIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+  }));
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>

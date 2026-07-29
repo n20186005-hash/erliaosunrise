@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+const title = '照片授權與資料來源｜二寮日出指南';
+const description = 'ErliaoSunrise.com 使用的二寮實景照片作者、開放授權條款與官方資料來源。';
+
+const photos = [
+  {
+    file: 'hero-erliao-sunrise.webp／og-erliao-sunrise.jpg',
+    title: '二寮 2016.5.15 台南',
+    author: '大雄 汪',
+    license: 'CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:%E4%BA%8C%E5%AF%AE_2016.5.15_%E5%8F%B0%E5%8D%97.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    image: '/images/hero-erliao-sunrise.webp',
+    note: '本站為網頁效能進行裁切、縮放、壓縮與標題排版。'
+  },
+  {
+    file: 'erliao-sunrise.webp',
+    title: 'Sunrise Erliao Tainan Taiwan',
+    author: 'Koika',
+    license: 'CC BY-SA 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Sunrise_Erliao_Tainan_Taiwan.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    image: '/images/erliao-sunrise.webp',
+    note: '本站為網頁效能進行縮放與壓縮。'
+  },
+  {
+    file: 'erliao-platform.webp',
+    title: '台南左鎮區二寮觀日亭',
+    author: 'Guanting Chen',
+    license: 'CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:%E5%8F%B0%E5%8D%97%E5%B7%A6%E9%8E%AE%E5%8D%80%E4%BA%8C%E5%AF%AE%E8%A7%80%E6%97%A5%E4%BA%AD.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    image: '/images/erliao-platform.webp',
+    note: '本站為網頁效能進行裁切、縮放與壓縮。'
+  },
+  {
+    file: 'erliao-mist.webp',
+    title: '水墨二寮',
+    author: 'Dosibot',
+    license: 'CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:%E6%B0%B4%E5%A2%A8%E4%BA%8C%E5%AF%AE.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    image: '/images/erliao-mist.webp',
+    note: '本站為網頁效能進行裁切、縮放與壓縮。'
+  }
+];
+---
+<BaseLayout title={title} description={description}>
+  <section class="bg-forest-950 pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+    <div class="site-container">
+      <p class="eyebrow"><Icon name="camera" size={16} /> 開放授權</p>
+      <h1 class="mt-5 max-w-[13ch] font-serif text-[clamp(2.8rem,8vw,5.5rem)] font-bold leading-[1.04] tracking-[-.05em]">照片作者、授權與資料來源</h1>
+      <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">本站以真實照片呈現二寮景觀。影像原作來自 Wikimedia Commons，並依各作品的 Creative Commons 授權標示作者、來源及修改情形。</p>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <div class="site-container grid gap-6 md:grid-cols-2">
+      {photos.map((photo) => (
+        <article class="paper-card overflow-hidden">
+          <div class="aspect-[16/10] overflow-hidden bg-forest-900">
+            <img class="h-full w-full object-cover" src={photo.image} alt={`${photo.title}，作者 ${photo.author}`} loading="lazy" />
+          </div>
+          <div class="p-6 sm:p-7">
+            <p class="text-xs font-extrabold tracking-widest text-sun-500">{photo.file}</p>
+            <h2 class="mt-2 font-serif text-2xl font-bold">{photo.title}</h2>
+            <dl class="mt-5 grid grid-cols-[5rem_1fr] gap-x-3 gap-y-2 text-sm leading-6">
+              <dt class="font-bold text-forest-700">作者</dt><dd>{photo.author}</dd>
+              <dt class="font-bold text-forest-700">授權</dt><dd><a class="underline decoration-sand-200 underline-offset-4 hover:text-sun-500" href={photo.licenseUrl} target="_blank" rel="noopener noreferrer">{photo.license} <Icon name="external" size={13} class="inline" /></a></dd>
+              <dt class="font-bold text-forest-700">處理</dt><dd>{photo.note}</dd>
+            </dl>
+            <a class="mt-6 inline-flex items-center gap-1 text-sm font-extrabold text-forest-700 underline decoration-sand-200 underline-offset-4 hover:text-forest-950" href={photo.source} target="_blank" rel="noopener noreferrer">查看 Wikimedia Commons 原始頁面 <Icon name="external" size={14} /></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="site-container grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div>
+        <p class="eyebrow"><Icon name="info" size={16} /> 資料來源</p>
+        <h2 class="section-title">以官方資訊作為主要事實依據。</h2>
+      </div>
+      <div class="divide-y divide-sand-200 border-y border-sand-200">
+        <a class="flex items-center justify-between gap-5 py-5 font-bold hover:text-sun-500" href="https://www.siraya-nsa.gov.tw/zh-tw/attractions/detail/30" target="_blank" rel="noopener noreferrer"><span>西拉雅國家風景區管理處・二寮觀日亭</span><Icon name="external" size={17} /></a>
+        <a class="flex items-center justify-between gap-5 py-5 font-bold hover:text-sun-500" href="https://www.siraya-nsa.gov.tw/zh-tw/service/live-camera/1" target="_blank" rel="noopener noreferrer"><span>西拉雅國家風景區管理處・二寮即時影像</span><Icon name="external" size={17} /></a>
+        <a class="flex items-center justify-between gap-5 py-5 font-bold hover:text-sun-500" href="https://www.twtainan.net/zh-tw/attractions/detail/569/" target="_blank" rel="noopener noreferrer"><span>台南旅遊網・二寮觀日亭</span><Icon name="external" size={17} /></a>
+        <a class="flex items-center justify-between gap-5 py-5 font-bold hover:text-sun-500" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer"><span>Open-Meteo・氣象預報 API</span><Icon name="external" size={17} /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

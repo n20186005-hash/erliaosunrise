@@ -1,0 +1,49 @@
+---
+interface Props {
+  name: keyof typeof icons;
+  size?: number;
+  strokeWidth?: number;
+  class?: string;
+  label?: string;
+}
+
+const icons = {
+  sunrise: '<path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+  mapPin: '<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>',
+  camera: '<path d="M14.5 4 16 6h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3l1.5-2h5Z"/><circle cx="12" cy="13" r="3.5"/>',
+  car: '<path d="m5 17-1 2"/><path d="m19 17 1 2"/><path d="M5 9l2-5h10l2 5"/><path d="M3 12a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v5H3v-5Z"/><circle cx="7" cy="14" r="1"/><circle cx="17" cy="14" r="1"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  wind: '<path d="M4 8h11a3 3 0 1 0-3-3"/><path d="M4 12h15a2 2 0 1 1-2 2"/><path d="M4 16h8"/>',
+  cloud: '<path d="M17.5 19H7a5 5 0 1 1 1.8-9.66A6 6 0 0 1 20 12a3.5 3.5 0 0 1-2.5 7Z"/>',
+  droplet: '<path d="M12 2s6 6.2 6 12a6 6 0 0 1-12 0c0-5.8 6-12 6-12Z"/>',
+  route: '<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h3a4 4 0 0 0 4-4V9a4 4 0 0 1 4-4"/>',
+  external: '<path d="M15 3h6v6"/><path d="m10 14 11-11"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',
+  menu: '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
+  close: '<path d="m18 6-12 12"/><path d="m6 6 12 12"/>',
+  chevron: '<path d="m9 18 6-6-6-6"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/>',
+  mountain: '<path d="m3 20 7-12 4 7 2-3 5 8H3Z"/><path d="m8.5 11 1.5 2 1.3-2"/>',
+  aperture: '<circle cx="12" cy="12" r="9"/><path d="m14.3 3.3-4 7"/><path d="m20.7 9.5-8.1.1"/><path d="m18.4 18.4-4.1-7"/><path d="m9.7 20.7 4-7"/><path d="m3.3 14.5 8.1-.1"/><path d="m5.6 5.6 4.1 7"/>',
+  arrowDown: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>'
+} as const;
+
+const { name, size = 22, strokeWidth = 1.8, class: className, label } = Astro.props;
+---
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden={label ? undefined : 'true'}
+  role={label ? 'img' : undefined}
+>
+  {label && <title>{label}</title>}
+  <g set:html={icons[name]} />
+</svg>

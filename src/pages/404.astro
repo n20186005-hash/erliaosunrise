@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+const title = '找不到頁面｜二寮日出指南';
+const description = '這個頁面不存在，返回二寮日出指南首頁。';
+---
+<BaseLayout title={title} description={description} noindex={true}>
+  <section class="grain relative min-h-[78vh] overflow-hidden bg-forest-950 pb-20 pt-32 text-white sm:pt-40">
+    <img class="absolute inset-0 h-full w-full object-cover opacity-30" src="/images/erliao-mist.webp" alt="" />
+    <div class="absolute inset-0 bg-forest-950/75"></div>
+    <div class="site-container relative flex min-h-[55vh] flex-col items-start justify-center">
+      <p class="font-serif text-8xl font-bold text-sun-400 sm:text-9xl">404</p>
+      <h1 class="mt-4 font-serif text-4xl font-bold sm:text-6xl">這條山路沒有通往頁面。</h1>
+      <p class="mt-6 max-w-xl text-base leading-8 text-white/62">網址可能已經更改，或內容不存在。回到首頁查看下一次日出、天氣與導航資訊。</p>
+      <a class="sun-button mt-9" href="/"><Icon name="sunrise" size={18} />返回二寮日出指南</a>
+    </div>
+  </section>
+</BaseLayout>

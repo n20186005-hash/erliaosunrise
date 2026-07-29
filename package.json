@@ -11,7 +11,8 @@
     "preview": "pnpm dev",
     "worker:dev": "pnpm dev",
     "deploy": "pnpm build && wrangler deploy",
-    "check": "astro check && tsc --noEmit -p worker/tsconfig.json"
+    "check": "astro check && tsc --noEmit",
+    "check:worker": "tsc --noEmit -p worker/tsconfig.json"
   },
   "dependencies": {
     "astro": "7.1.3"

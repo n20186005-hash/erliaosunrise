@@ -1,0 +1,15 @@
+# 二寮日出指南
+
+> ErliaoSunrise.com 是臺南左鎮二寮觀日亭的繁體中文行前決策網站。
+
+主要內容：
+- 下一次日出、天光與建議抵達時間
+- 清晨雲量、濕度、風速、能見度與降雨機率
+- 官方即時影像入口
+- 自駕、停車與導航資訊
+- 攝影與季節提示
+
+官方資料來源：
+- https://www.siraya-nsa.gov.tw/zh-tw/attractions/detail/30
+- https://www.siraya-nsa.gov.tw/zh-tw/service/live-camera/1
+- https://www.twtainan.net/zh-tw/attractions/detail/569/

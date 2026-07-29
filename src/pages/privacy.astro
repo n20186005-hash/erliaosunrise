@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+const title = '隱私說明｜二寮日出指南';
+const description = 'ErliaoSunrise.com 的隱私與資料處理說明。本站無帳號、無資料庫、無表單，亦不主動設定追蹤 Cookie。';
+---
+<BaseLayout title={title} description={description}>
+  <section class="bg-forest-950 pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+    <div class="site-container">
+      <p class="eyebrow"><Icon name="shield" size={16} /> 隱私說明</p>
+      <h1 class="mt-5 font-serif text-[clamp(2.8rem,8vw,5.5rem)] font-bold leading-[1.04] tracking-[-.05em]">簡單網站，少收資料。</h1>
+      <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">最後更新：2026 年 7 月 29 日</p>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <article class="site-container max-w-3xl space-y-10">
+      <section>
+        <h2 class="font-serif text-3xl font-bold">本站不建立使用者帳號</h2>
+        <p class="section-copy mt-4">ErliaoSunrise.com 沒有登入、會員、留言、訂閱或預訂功能，也沒有資料庫與內容管理系統。本站不要求你提供姓名、電子郵件、電話或付款資訊。</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-3xl font-bold">不主動設定行銷追蹤</h2>
+        <p class="section-copy mt-4">目前網站程式未放置廣告追蹤碼、再行銷像素或第三方行為分析工具，也不主動設定追蹤 Cookie。日後若加入分析或廣告服務，本頁會更新相關說明。</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-3xl font-bold">氣象資料如何取得</h2>
+        <p class="section-copy mt-4">頁面顯示二寮附近的日出與氣象摘要，預報資料來自 Open-Meteo。本站使用固定的景點座標，不會要求或取得你的所在位置。</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-3xl font-bold">基礎網路紀錄</h2>
+        <p class="section-copy mt-4">網站由 Cloudflare 提供託管與網路服務。和一般網站相同，基礎設施供應商可能為安全、除錯、濫用防護與服務維運處理 IP 位址、請求時間、瀏覽器資訊及錯誤紀錄。這些資料受供應商本身政策約束。</p>
+      </section>
+
+      <section>
+        <h2 class="font-serif text-3xl font-bold">外部連結</h2>
+        <p class="section-copy mt-4">首頁嵌入 YouTube 即時影像與 Google Maps 地圖。載入這些內容時，Google 可能接收 IP 位址、瀏覽器資訊與請求時間，並依其政策處理資料。當你開啟其他外部網站時，資料也由該網站負責，請參閱其隱私政策。</p>
+      </section>
+
+      <div class="rounded-3xl bg-forest-900 p-6 text-white sm:p-8">
+        <p class="flex items-start gap-3 text-sm leading-7 text-white/65"><Icon name="info" size={18} class="mt-1 shrink-0 text-sun-300" />本站為非官方旅遊資訊網站。景點開放、交通、天氣與安全狀況可能變動，請以主管機關與現場公告為準。</p>
+      </div>
+    </article>
+  </section>
+</BaseLayout>
