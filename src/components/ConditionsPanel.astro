@@ -113,9 +113,29 @@ import Icon from './Icon.astro';
               </div>
             </dl>
 
+            <div data-advice class="mt-8 rounded-2xl bg-white/[.05] p-5 sm:p-6" hidden>
+              <p class="flex items-center gap-2 text-sm font-extrabold text-sun-300"><Icon name="route" size={16} /> 智慧出行建議</p>
+              <p class="mt-1.5 text-xs leading-5 text-white/40">依下一次日出時段的天氣自動生成，僅供行程參考。</p>
+              <ul data-advice-risks hidden class="mt-4 space-y-2"></ul>
+              <div class="mt-4 grid gap-5 sm:grid-cols-3">
+                <div data-advice-group="outfit" hidden>
+                  <p class="text-xs font-extrabold tracking-[.14em] text-white/45">出行穿搭</p>
+                  <ul data-advice-list="outfit" class="mt-2.5 space-y-2 text-sm leading-6 text-white/75"></ul>
+                </div>
+                <div data-advice-group="activity" hidden>
+                  <p class="text-xs font-extrabold tracking-[.14em] text-white/45">遊玩安排</p>
+                  <ul data-advice-list="activity" class="mt-2.5 space-y-2 text-sm leading-6 text-white/75"></ul>
+                </div>
+                <div data-advice-group="gear" hidden>
+                  <p class="text-xs font-extrabold tracking-[.14em] text-white/45">隨身物品</p>
+                  <ul data-advice-list="gear" class="mt-2.5 space-y-2 text-sm leading-6 text-white/75"></ul>
+                </div>
+              </div>
+            </div>
+
             <div class="mt-8 border-t border-white/10 pt-6">
-              <p class="text-sm font-extrabold">接下來 5 天</p>
-              <div data-forecast class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5"></div>
+              <p class="text-sm font-extrabold">未來一週預報</p>
+              <div data-forecast class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-7"></div>
             </div>
           </div>
         </div>
@@ -147,6 +167,13 @@ import Icon from './Icon.astro';
     minTemperature: number;
     maxTemperature: number;
     precipitationProbability: number;
+  }
+
+  interface ConditionsAdvice {
+    outfit: string[];
+    activity: string[];
+    gear: string[];
+    risks: string[];
   }
 
   interface ConditionsPayload {
@@ -182,6 +209,7 @@ import Icon from './Icon.astro';
       summary: string;
       level: string;
     };
+    advice?: ConditionsAdvice;
     forecast: ForecastDay[];
     source: {
       name: string;
@@ -214,7 +242,7 @@ import Icon from './Icon.astro';
 
     container.replaceChildren(...forecast.map((day) => {
       const item = document.createElement('div');
-      item.className = 'last:col-span-2 rounded-xl bg-white/[.06] px-2 py-3 text-center sm:last:col-span-1';
+      item.className = 'last:col-span-2 rounded-xl bg-white/[.06] px-1.5 py-3 text-center sm:last:col-span-1';
 
       const label = document.createElement('p');
       label.className = 'text-[.68rem] font-bold text-white/45';
@@ -254,6 +282,40 @@ import Icon from './Icon.astro';
       && Boolean(data.current && data.target && data.weather && data.recommendation)
       && Array.isArray(data.forecast)
       && data.forecast.length >= 3;
+  };
+
+  const renderAdvice = (advice: ConditionsAdvice) => {
+    const panel = card?.querySelector<HTMLElement>('[data-advice]');
+    if (!panel) return;
+    panel.hidden = false;
+
+    const risks = card?.querySelector<HTMLUListElement>('[data-advice-risks]');
+    if (risks) {
+      risks.replaceChildren(...advice.risks.map((text) => {
+        const item = document.createElement('li');
+        item.className = 'rounded-xl bg-red-500/15 px-3.5 py-2.5 text-xs font-bold leading-6 text-red-200';
+        item.textContent = text;
+        return item;
+      }));
+      risks.hidden = advice.risks.length === 0;
+    }
+
+    (['outfit', 'activity', 'gear'] as const).forEach((key) => {
+      const group = card?.querySelector<HTMLElement>(`[data-advice-group="${key}"]`);
+      const list = card?.querySelector<HTMLUListElement>(`[data-advice-list="${key}"]`);
+      if (!group || !list) return;
+
+      list.replaceChildren(...advice[key].map((text) => {
+        const item = document.createElement('li');
+        item.className = 'flex gap-2.5';
+        const dot = document.createElement('span');
+        dot.className = 'mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400';
+        dot.setAttribute('aria-hidden', 'true');
+        item.append(dot, document.createTextNode(text));
+        return item;
+      }));
+      group.hidden = advice[key].length === 0;
+    });
   };
 
   const renderConditions = (data: ConditionsPayload) => {
@@ -300,6 +362,8 @@ import Icon from './Icon.astro';
       source.textContent = data.source.name;
       source.href = data.source.url;
     }
+
+    if (data.advice) renderAdvice(data.advice);
 
     renderForecast(data.forecast);
     showState('content');

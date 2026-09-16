@@ -36,6 +36,9 @@ interface NormalizedWeather {
     weatherCode: number;
     condition: string;
     icon: string;
+    dayMaxTemperature: number;
+    temperatureSpread: number;
+    uvIndexMax: number | null;
   };
   forecast: Array<{
     date: string;
@@ -106,7 +109,8 @@ function upstreamUrl(): URL {
       'weather_code',
       'temperature_2m_max',
       'temperature_2m_min',
-      'precipitation_probability_max'
+      'precipitation_probability_max',
+      'uv_index_max'
     ].join(',')
   );
   return url;
@@ -146,6 +150,11 @@ function arrayNumber(record: Record<string, unknown>, field: string, index: numb
 
 function arrayString(record: Record<string, unknown>, field: string, index: number): string {
   return requiredString(requiredArray(record[field], field)[index], `${field}.${index}`);
+}
+
+function optionalArrayNumber(record: Record<string, unknown>, field: string, index: number): number | null {
+  const value = requiredArray(record[field], field)[index];
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
 
 function round(value: number, precision = 0): number {
@@ -299,6 +308,102 @@ function recommendation(input: {
   };
 }
 
+interface AdviceInput {
+  weatherCode: number;
+  temperature: number;
+  dayMaxTemperature: number;
+  temperatureSpread: number;
+  uvIndexMax: number | null;
+  windSpeed: number;
+  visibilityKm: number;
+  precipitationProbability: number;
+  cloudCover: number;
+  humidity: number;
+}
+
+export interface ConditionsAdvice {
+  outfit: string[];
+  activity: string[];
+  gear: string[];
+  risks: string[];
+}
+
+/**
+ * 面向一般遊客的建議引擎：依下一次日出時段的天氣組合輸出「可執行」的建議。
+ * 原則：口語化、不使用氣象術語；未命中的項目不輸出，由前端隱藏；風險類條目優先且僅在命中時出現。
+ */
+export function buildAdvice(input: AdviceInput): ConditionsAdvice {
+  const outfit: string[] = [];
+  const activity: string[] = [];
+  const gear: string[] = [];
+  const risks: string[] = [];
+
+  const thunder = [82, 95, 96, 99].includes(input.weatherCode);
+  const heavyRain = [63, 65, 66, 67, 81, 82].includes(input.weatherCode);
+  const rainy = heavyRain || [51, 53, 55, 56, 57, 61, 80].includes(input.weatherCode);
+  const foggy = [45, 48].includes(input.weatherCode) || input.visibilityKm < 1;
+  const cloudy = [2, 3].includes(input.weatherCode);
+  const clearish = [0, 1].includes(input.weatherCode);
+  const rainyRisk = rainy || input.precipitationProbability >= 60;
+
+  if (thunder) {
+    risks.push('有雷雨發展的可能：不要在空曠平台或樹下逗留，建議直接延後行程，安全優先。');
+  } else if (heavyRain || input.precipitationProbability >= 75) {
+    risks.push('降雨偏強或降雨機率很高：山區道路與惡地邊坡濕滑，建議改期，或改為化石園區等室內行程。');
+  }
+  if (input.windSpeed >= 40) {
+    risks.push('風勢明顯偏強：觀景平台體感更冷、帽子與裝備易被吹落，請勿在邊坡逗留。');
+  }
+  if (foggy) {
+    risks.push('濃霧可能遮蔽日出，也會影響行車能見度：山路請減速慢行、會車禮讓。');
+  }
+
+  if (input.temperature <= 12) {
+    outfit.push('清晨氣溫偏冷，厚外套、毛帽與圍巾不可少。');
+    gear.push('保暖帽與手套');
+  } else if (input.temperature <= 18) {
+    outfit.push('凌晨體感偏涼，一件薄外套或刷毛剛剛好。');
+  }
+  if (input.windSpeed >= 25 && input.windSpeed < 40) {
+    outfit.push('風勢偏大，建議防風外套；寬鬆長裙與易吹落的帽子不適合。');
+  }
+  if (input.temperatureSpread >= 8) {
+    outfit.push('晝夜溫差大，採洋蔥式穿搭，日出回溫後方便脫卸。');
+  }
+  if (input.dayMaxTemperature >= 32) {
+    outfit.push('白天氣溫偏高，日出之後的行程安排透氣衣物。');
+  }
+
+  if (clearish && input.cloudCover <= 40) {
+    activity.push('天氣晴朗，適合觀日與戶外行程；上午時段記得防曬。');
+  }
+  if (cloudy) {
+    activity.push('雲層偏厚，日出色彩可能較平淡，但光線柔和、適合拍照與長時間戶外走走。');
+  }
+  if (input.cloudCover >= 40 && input.cloudCover <= 75 && input.humidity >= 70 && !rainyRisk) {
+    activity.push('這樣的雲量與水氣組合，有機會出現晨霧或雲海，值得期待。');
+  }
+  if (rainyRisk) {
+    activity.push('有降雨可能：路面與觀景平台濕滑，步行放慢、留意腳步。');
+  }
+  if (input.precipitationProbability >= 60) {
+    activity.push('降雨機率不低，行程保留彈性，可先規劃化石園區等室內備案。');
+  }
+  if (input.uvIndexMax !== null && input.uvIndexMax >= 8) {
+    activity.push('白天紫外線很強，上午十點後注意防曬與補充水分。');
+  }
+
+  if (input.uvIndexMax !== null && input.uvIndexMax >= 6) {
+    gear.push('防曬乳與太陽眼鏡');
+  }
+  gear.push('手電筒或頭燈（抵達時天色未亮）');
+  if (rainyRisk) {
+    gear.push(thunder ? '輕便雨衣（風大，不建議長柄雨傘）' : '摺疊傘或輕便雨衣');
+  }
+
+  return { outfit, activity, gear, risks };
+}
+
 function normalizeWeather(raw: unknown): NormalizedWeather {
   const root = requiredRecord(raw, 'response');
   const current = requiredRecord(root.current, 'current');
@@ -321,10 +426,15 @@ function normalizeWeather(raw: unknown): NormalizedWeather {
     precipitationProbability: round(arrayNumber(hourly, 'precipitation_probability', hourlyIndex)),
     temperature: round(arrayNumber(hourly, 'temperature_2m', hourlyIndex)),
     weatherCode: targetWeatherCode,
+    dayMaxTemperature: round(arrayNumber(daily, 'temperature_2m_max', targetIndex)),
+    temperatureSpread: round(
+      arrayNumber(daily, 'temperature_2m_max', targetIndex) - arrayNumber(daily, 'temperature_2m_min', targetIndex)
+    ),
+    uvIndexMax: optionalArrayNumber(daily, 'uv_index_max', targetIndex),
     ...targetInfo
   };
 
-  const forecastCount = Math.min(5, requiredArray(daily.time, 'daily.time').length - targetIndex);
+  const forecastCount = Math.min(7, requiredArray(daily.time, 'daily.time').length - targetIndex);
   if (forecastCount < 3) throw new Error('Three-day forecast unavailable');
 
   return {
@@ -388,6 +498,7 @@ async function getConditions() {
     updatedAt: new Date().toISOString(),
     ...weather,
     recommendation: recommendation(weather.weather),
+    advice: buildAdvice(weather.weather),
     source: {
       name: 'Open-Meteo',
       url: 'https://open-meteo.com/',

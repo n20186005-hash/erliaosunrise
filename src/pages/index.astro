@@ -1,15 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ConditionsPanel from '../components/ConditionsPanel.astro';
+import SunriseNow from '../components/SunriseNow.astro';
 import Icon from '../components/Icon.astro';
 
-const title = '二寮觀日亭日出攻略｜日出時間、即時影像、交通停車';
-const description = '規劃台南二寮觀日亭日出行程：查看下一次日出時間、觀景條件、官方即時影像、導航、停車、拍攝提示與左鎮周邊路線。';
+const title = '二寮觀日亭日出時間｜即時影像、雲海季節與交通停車攻略';
+const description = '【每日更新】台南二寮觀日亭（臺南左鎮）今日與明日日出時間、即時影像與現場天氣、雲海最佳月份、開車路線與停車指引，並整理草山月世界、左鎮化石園區等順遊路線。';
+
+const mapsShareUrl = 'https://maps.app.goo.gl/KVSX2Gm83RceQEGh6';
+const ratingSyncNote = '同步自 Google 地圖用戶評價，同步時間 2026 年 9 月；版權歸原作者與 Google 地圖所有。';
 
 const faqs = [
   {
-    question: '二寮觀日亭需要門票嗎？',
+    question: '今天二寮日出時間是幾點？',
+    answer: '二寮的日出時間每天不同：夏季約 05:10–05:30，春、秋季約 05:45–06:10，冬季約 06:30–06:50。本頁首頁會依觀日亭座標即時計算「今日日出」與「明日日出」，下方觀景條件面板則會搭配當日天氣給出建議抵達時間；要以官方數據為準時，可再對照交通部中央氣象署的日出日沒時刻。'
+  },
+  {
+    question: '二寮觀日亭有即時影像嗎？在哪裡看？',
+    answer: '有。本站「二寮觀日亭即時影像與氣候現況」區塊直接嵌入觀日平臺的即時影像，可用來確認現場是否有霧、雲層厚薄與天色；另可前往西拉雅國家風景區管理處的即時影像頁面查看官方訊號。影像可能因天候、設備或網路狀況暫時中斷。'
+  },
+  {
+    question: '二寮觀日亭在哪裡？要怎麼去？',
+    answer: '台南二寮觀日亭位於臺南市左鎮區二寮，屬西拉雅國家風景區範圍，座標 22.9927444, 120.4098726。最實際的方式是自駕，直接導航上述座標（比輸入地址精準）；從臺南市區出發車程約 50–60 分鐘。夜間山路照明有限、彎道多，請降低車速並避免單憑地址導航。'
+  },
+  {
+    question: '二寮觀日亭需要門票或預約嗎？',
     answer: '目前官方景點資訊標示為免門票、全天開放。特殊活動、道路施工、天候或節慶交通管制仍可能影響通行，出發前應查看最新公告。'
+  },
+  {
+    question: '現場可以買到食物或飲料嗎？',
+    answer: '觀日亭清晨可能有行動攤販供應熱食與飲品，依當日擺攤情況而定；建議出發前先用餐或自備熱飲保溫瓶。鄰近的左鎮與新化市區亦有便利商店與餐飲店家可補給。'
   },
   {
     question: '應該在日出前多久抵達？',
@@ -37,8 +57,9 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'TouristAttraction',
+    '@id': 'https://erliaosunrise.com/#attraction',
     name: '台南二寮觀日亭',
-    alternateName: ['二寮日出', '二寮觀日平臺', 'Erliao Sunrise Pavilion'],
+    alternateName: ['二寮日出', '二寮觀日平臺', '台南二寮觀日亭', 'Erliao Sunrise Pavilion'],
     description,
     url: 'https://erliaosunrise.com/',
     image: [
@@ -53,16 +74,29 @@ const jsonLd = [
       latitude: 22.9927444,
       longitude: 120.4098726
     },
+    hasMap: mapsShareUrl,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '二寮（XCV5+3W 左鎮區）',
       addressLocality: '左鎮區',
       addressRegion: '臺南市',
+      postalCode: '713',
       addressCountry: 'TW'
     },
     touristType: ['攝影旅人', '自駕旅人', '自然景觀旅人'],
     sameAs: [
+      mapsShareUrl,
       'https://www.siraya-nsa.gov.tw/zh-tw/attractions/detail/30',
       'https://www.twtainan.net/zh-tw/attractions/detail/569/'
+    ]
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '臺南市', item: 'https://erliaosunrise.com/#tainan' },
+      { '@type': 'ListItem', position: 2, name: '左鎮區', item: 'https://erliaosunrise.com/#zuozhen' },
+      { '@type': 'ListItem', position: 3, name: '台南二寮觀日亭', item: 'https://erliaosunrise.com/#attraction' }
     ]
   },
   {
@@ -85,7 +119,7 @@ const jsonLd = [
     <img
       class="absolute inset-0 h-full w-full object-cover object-[56%_48%]"
       src="/images/hero-erliao-sunrise.webp"
-      alt="二寮清晨日出穿過山谷薄霧與竹林"
+      alt="台南二寮觀日亭清晨日出穿過山谷薄霧與竹林（臺南市左鎮區）"
       width="1920"
       height="1280"
       fetchpriority="high"
@@ -99,10 +133,15 @@ const jsonLd = [
           <span class="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 backdrop-blur">全天開放・免門票</span>
           <span class="rounded-full border border-white/25 bg-white/10 px-3 py-1.5 backdrop-blur">低海拔雲海日出</span>
         </div>
-        <h1 class="mt-7 max-w-[9ch] font-serif text-[clamp(3.5rem,10vw,7.3rem)] font-bold leading-[.96] tracking-[-.065em] text-white">天亮以前，先來二寮。</h1>
-        <p class="mt-7 max-w-2xl text-base font-medium leading-8 text-white/72 sm:text-lg">在左鎮月世界的丘陵與竹林之上，等待第一道斜光穿過谷地晨霧。先看日出時間與現場條件，再決定今晚要不要出發。</p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a class="sun-button" href="#conditions"><Icon name="sunrise" size={19} />查看下一次日出</a>
+        <p class="mt-6 text-sm font-extrabold tracking-[0.22em] text-sun-300">臺南市左鎮區・二寮觀日平臺</p>
+        <h1 class="mt-4">
+          <span class="block font-serif text-[clamp(1.35rem,4.4vw,2.15rem)] font-bold leading-[1.2] tracking-[-.01em] text-sun-300">台南二寮觀日亭・今日日出時間</span>
+          <span class="mt-3 block max-w-[9ch] font-serif text-[clamp(2.9rem,8.6vw,6rem)] font-bold leading-[1] tracking-[-.06em] text-white">天亮以前，先來二寮。</span>
+        </h1>
+        <p class="mt-6 max-w-2xl text-base font-medium leading-8 text-white/72 sm:text-lg">在左鎮月世界的丘陵與竹林之上，等待第一道斜光穿過谷地晨霧。先看日出時間與現場條件，再決定今晚要不要出發。</p>
+        <SunriseNow />
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a class="sun-button" href="#conditions"><Icon name="sunrise" size={19} />查看明早觀景條件</a>
           <a class="outline-button" href="#live"><Icon name="camera" size={18} />查看即時影像</a>
         </div>
       </div>
@@ -129,10 +168,10 @@ const jsonLd = [
     <div class="site-container">
       <div class="reveal flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p class="eyebrow"><Icon name="camera" size={16} /> 現場畫面</p>
-          <h2 class="section-title text-white">先看此刻的二寮。</h2>
+          <p class="eyebrow"><Icon name="camera" size={16} /> 二寮即時影像</p>
+          <h2 class="section-title text-white">二寮觀日亭即時影像與氣候現況</h2>
         </div>
-        <p class="max-w-md text-sm leading-7 text-white/58">即時影像可能因天候、設備或網路狀況暫時中斷，畫面時間請以播放器顯示為準。</p>
+        <p class="max-w-md text-sm leading-7 text-white/58">出發前先看此刻的二寮：確認谷地是否有霧、雲層厚薄與現場天色。影像可能因天候、設備或網路狀況暫時中斷，畫面時間請以播放器顯示為準。</p>
       </div>
       <div class="reveal mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_32px_90px_rgba(0,0,0,.28)]">
         <div class="aspect-video">
@@ -147,13 +186,62 @@ const jsonLd = [
           ></iframe>
         </div>
       </div>
+      <div class="reveal mt-5 flex flex-wrap gap-3">
+        <a class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-sm font-bold text-white/75 transition hover:border-white/35 hover:text-white" href="https://www.siraya-nsa.gov.tw/zh-tw/service/live-camera/1" target="_blank" rel="noopener noreferrer">西拉雅國家風景區管理處・二寮即時影像 <Icon name="external" size={14} /></a>
+        <a class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[.06] px-4 py-2.5 text-sm font-bold text-white/75 transition hover:border-white/35 hover:text-white" href="https://www.cwa.gov.tw/" target="_blank" rel="noopener noreferrer">交通部中央氣象署・天氣與日出日沒時刻 <Icon name="external" size={14} /></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="bg-sand-50 py-20 sm:py-28">
+    <div class="site-container">
+      <nav aria-label="景點位置" class="reveal">
+        <ol class="flex flex-wrap items-center gap-2 text-sm font-bold text-forest-700">
+          <li>台灣</li>
+          <li aria-hidden="true" class="text-sun-500">→</li>
+          <li>臺南市</li>
+          <li aria-hidden="true" class="text-sun-500">→</li>
+          <li>左鎮區</li>
+          <li aria-hidden="true" class="text-sun-500">→</li>
+          <li class="text-forest-950">台南二寮觀日亭</li>
+        </ol>
+      </nav>
+
+      <div class="mt-9 grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
+        <div class="reveal">
+          <p class="eyebrow"><Icon name="sun" size={16} /> 關於景點</p>
+          <h2 class="section-title">台南二寮觀日亭（Erliao Sunrise Pavilion）</h2>
+          <div class="mt-7 space-y-5 section-copy">
+            <p>歡迎來到<strong>台南二寮觀日亭</strong>，也就是旅人熟知的<strong>「二寮日出」</strong>與二寮觀日平臺所在。它位於臺灣臺南市左鎮區的月世界丘陵之間，鄰近西拉雅國家風景區，是造訪台南山區時最具代表性的日出觀賞據點之一。</p>
+            <p>前往台南二寮觀日亭時，旅人可順道探索周邊歷史地標與景點，包括<strong>草山月世界</strong>的惡地地形景觀，以及<strong>左鎮化石園區</strong>的化石與地質展覽。</p>
+          </div>
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a class="sun-button" href={mapsShareUrl} target="_blank" rel="noopener noreferrer"><Icon name="mapPin" size={18} />在 Google 地圖查看景點</a>
+            <a class="inline-flex items-center gap-1 text-sm font-extrabold text-forest-700 underline decoration-sand-200 underline-offset-4 hover:text-forest-950" href="#transport">交通與停車資訊 <Icon name="chevron" size={15} /></a>
+          </div>
+        </div>
+
+        <div class="reveal space-y-4">
+          <dl class="paper-card grid grid-cols-[6.5rem_1fr] gap-x-4 gap-y-3 p-6 text-sm leading-6 sm:p-7">
+            <dt class="font-bold text-forest-700">景點類型</dt><dd>景觀區</dd>
+            <dt class="font-bold text-forest-700">地址</dt><dd>713 台灣臺南市左鎮區二寮</dd>
+            <dt class="font-bold text-forest-700">座標</dt><dd>22.9927444, 120.4098726</dd>
+            <dt class="font-bold text-forest-700">開放時間</dt><dd>全天開放</dd>
+            <dt class="font-bold text-forest-700">門票</dt><dd>免費（依現場公告為準）</dd>
+          </dl>
+          <div class="paper-card p-6 sm:p-7">
+            <h3 class="font-serif text-xl font-bold">歷史與意義</h3>
+            <p class="mt-3 text-sm leading-7 text-forest-700">「二寮」之名相傳源自早年拓墾時期依序搭建的草寮。2010 年代起經攝影社群推廣，二寮以「最接近城市的低海拔雲海日出」聞名全台；西拉雅國家風景區管理處並在此設置觀日平臺、停車與廁所等設施，讓清晨追光更容易安排。</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="overflow-hidden bg-white py-20 sm:py-32">
     <div class="site-container grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
       <div class="photo-frame reveal aspect-[4/3] lg:aspect-[5/6]">
-        <img src="/images/erliao-mist.webp" alt="二寮山谷竹林間的金色晨霧" width="1280" height="853" loading="lazy" />
+        <img src="/images/erliao-mist.webp" alt="台南二寮觀日亭山谷竹林間的金色晨霧" width="1280" height="853" loading="lazy" />
       </div>
       <div class="reveal">
         <p class="eyebrow"><Icon name="mountain" size={16} /> 最接近城市的曙光</p>
@@ -210,11 +298,11 @@ const jsonLd = [
       </div>
       <div class="mt-12 grid gap-5 md:grid-cols-12 md:grid-rows-[260px_280px]">
         <figure class="photo-frame reveal relative md:col-span-7 md:row-span-2">
-          <img src="/images/erliao-sunrise.webp" alt="二寮日出升起於山稜與雲霧之上" width="1440" height="1080" loading="lazy" />
+          <img src="/images/erliao-sunrise.webp" alt="台南二寮觀日亭日出升起於山稜與雲霧之上" width="1440" height="1080" loading="lazy" />
           <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-5 pt-14 text-xs text-white/75">日出、山稜與低層晨霧</figcaption>
         </figure>
         <figure class="photo-frame reveal relative md:col-span-5">
-          <img src="/images/erliao-platform.webp" alt="空拍視角下的二寮觀日平臺、道路與月世界丘陵" width="960" height="539" loading="lazy" />
+          <img src="/images/erliao-platform.webp" alt="空拍視角下的台南二寮觀日亭觀日平臺、道路與月世界丘陵" width="960" height="539" loading="lazy" />
           <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-5 pt-14 text-xs text-white/75">觀日平臺與周邊丘陵</figcaption>
         </figure>
         <figure class="photo-frame reveal relative md:col-span-5">
@@ -223,6 +311,42 @@ const jsonLd = [
         </figure>
       </div>
       <div class="mt-6 text-right"><a class="inline-flex items-center gap-1 text-sm font-bold text-forest-700 underline decoration-sand-200 underline-offset-4 hover:text-forest-950" href="/credits/">查看作者與照片授權 <Icon name="chevron" size={15} /></a></div>
+    </div>
+  </section>
+
+  <section id="reviews" class="bg-sand-50 py-20 sm:py-28">
+    <div class="site-container grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center lg:gap-20">
+      <div class="reveal">
+        <p class="eyebrow"><Icon name="star" size={16} /> 遊客評價</p>
+        <h2 class="section-title">來過的人，怎麼評價二寮。</h2>
+        <p class="section-copy mt-6">本頁的評分與評價數展示同步自 Google 地圖用戶評價，僅供行程規劃參考；實際體驗仍受天候、季節與當日交管影響。</p>
+      </div>
+
+      <div class="reveal paper-card p-7 sm:p-9">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+          <p class="font-serif text-6xl font-bold leading-none text-forest-900">4.5<span class="text-2xl font-bold text-forest-700/50"> / 5</span></p>
+          <div>
+            <div class="flex items-center gap-1 text-sun-400" role="img" aria-label="Google 地圖評分 4.5 分（滿分 5 分）">
+              {[0, 1, 2, 3].map(() => (
+                <Icon name="star" size={21} filled />
+              ))}
+              <span class="relative inline-block">
+                <span class="flex gap-1 text-sand-200"><Icon name="star" size={21} filled /></span>
+                <span class="absolute inset-y-0 left-0 w-1/2 overflow-hidden text-sun-400"><Icon name="star" size={21} filled /></span>
+              </span>
+            </div>
+            <p class="mt-2 text-sm font-bold text-forest-700">5,213 則 Google 地圖用戶評價</p>
+          </div>
+          <p class="rounded-full border border-sand-200 bg-white/70 px-3 py-1.5 text-xs font-extrabold text-forest-700">Google 地圖分類：景觀區</p>
+        </div>
+
+        <a class="mt-6 block text-xs leading-6 text-forest-700/75 underline decoration-sand-200 underline-offset-4 hover:text-forest-950" href={mapsShareUrl} target="_blank" rel="noopener noreferrer">評分與評價數同步自谷歌地圖（Google Maps）用戶評價 · 2026 年 9 月 · 點擊查看谷歌地圖全部評價 ↗</a>
+
+        <div class="mt-6 flex flex-col gap-5 border-t border-sand-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p class="max-w-md text-xs leading-6 text-forest-700/70">{ratingSyncNote}</p>
+          <a class="sun-button shrink-0" href={mapsShareUrl} target="_blank" rel="noopener noreferrer"><Icon name="external" size={18} />在谷歌地圖查看全部評價</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -238,6 +362,7 @@ const jsonLd = [
             <button id="copy-coordinates" type="button" class="outline-button"><Icon name="mapPin" size={18} />複製座標</button>
           </div>
           <p id="copy-feedback" class="mt-3 min-h-5 text-xs text-sun-300" aria-live="polite"></p>
+          <a class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-sun-300 underline underline-offset-4 hover:text-sun-400" href={mapsShareUrl} target="_blank" rel="noopener noreferrer">在 Google 地圖查看台南二寮觀日亭資訊與評價 <Icon name="external" size={13} /></a>
         </div>
 
         <div class="space-y-4">
@@ -268,6 +393,36 @@ const jsonLd = [
     </div>
   </section>
 
+  <section id="services" class="bg-white py-20 sm:py-28">
+    <div class="site-container">
+      <div class="reveal flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow"><Icon name="shield" size={16} /> 訪客服務</p>
+          <h2 class="section-title">設施與補給，出發前先掌握。</h2>
+        </div>
+        <p class="max-w-md text-sm leading-7 text-forest-700">本區塊以「設施類型」提供中立概覽，不推薦特定商家；實際開放狀態與營業時間請以現場及官方公告為準。</p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          { icon: 'droplet', title: '廁所（WC）', copy: '觀日亭設有洗手間，清晨尖峰時段可能需要排隊，建議出發前先完成如廁；現場設施維護狀況依管理單位公告為準。', tip: '自備濕紙巾與隨身衛生用品更安心' },
+          { icon: 'car', title: '停車', copy: '現場設有停車區，日出尖峰與連假期間一位難求並可能實施交通管制，請依現場人員與標示停放，勿阻礙道路。', tip: '旺季建議日出前 90 分鐘抵達' },
+          { icon: 'sun', title: '餐飲', copy: '觀日亭清晨或有行動攤販供應熱食與飲品（依當日擺攤情況）；正式用餐可規劃至左鎮或新化市區的餐飲店家與早餐店。', tip: '自備保溫瓶熱飲最穩妥' },
+          { icon: 'clock', title: '住宿', copy: '二寮現場沒有住宿設施。常見做法是夜宿臺南市區、新化或鄰近城鎮的旅宿，清晨再驅車前往，車程約 50–60 分鐘。', tip: '前一晚先完成路線與鬧鐘設定' },
+          { icon: 'mapPin', title: '商超補給', copy: '鄰近的左鎮市區有便利商店；飲水、零食與保暖用品建議在市區採買完成，山區深夜與清晨採買不易。', tip: '出發前檢查手電筒與行動電源' },
+          { icon: 'route', title: '加油與充電', copy: '山區加油站稀少且營業時間有限，建議進山前加滿油；電動車充電點多集中於市區，請出發前充飽並預留來回里程。', tip: '油量或電量建議預留 1.5 倍餘裕' }
+        ].map((item) => (
+          <article class="paper-card reveal p-6 sm:p-7">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name={item.icon as any} size={22} /></span>
+            <h3 class="mt-5 font-serif text-2xl font-bold">{item.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-forest-700">{item.copy}</p>
+            <p class="mt-4 flex items-start gap-2 border-t border-sand-200 pt-4 text-xs leading-6 text-forest-700/70"><Icon name="info" size={14} class="mt-0.5 shrink-0 text-sun-500" />{item.tip}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section id="photography" class="bg-sand-50 py-20 sm:py-32">
     <div class="site-container grid gap-12 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:gap-20">
       <div class="reveal order-2 lg:order-1">
@@ -287,14 +442,14 @@ const jsonLd = [
         <p class="mt-7 flex items-start gap-2 text-sm leading-7 text-forest-700"><Icon name="info" size={17} class="mt-1 shrink-0 text-sun-500" />請保持通道暢通，不跨越護欄、不使用強光干擾他人；空拍與特殊器材須另行核對當日法規及現場限制。</p>
       </div>
       <div class="photo-frame reveal order-1 aspect-[4/5] lg:order-2">
-        <img src="/images/hero-erliao-sunrise.webp" alt="二寮日出斜射光照亮竹林與晨霧" width="1920" height="1280" loading="lazy" />
+        <img src="/images/hero-erliao-sunrise.webp" alt="台南二寮觀日亭日出斜射光照亮竹林與晨霧" width="1920" height="1280" loading="lazy" />
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-20 sm:py-28">
+  <section id="seasons" class="bg-white py-20 sm:py-28">
     <div class="site-container">
-      <div class="reveal text-center"><p class="eyebrow"><Icon name="sun" size={16} /> 季節參考</p><h2 class="section-title mx-auto">全年能看，夏季更值得追。</h2><p class="section-copy mx-auto mt-5 max-w-2xl">官方資訊通常建議 6 月至 9 月為二寮較佳觀日季節。真正的好景仍由前一日降雨、清晨雲量、濕度與風勢共同決定。</p></div>
+      <div class="reveal text-center"><p class="eyebrow"><Icon name="sun" size={16} /> 季節策略</p><h2 class="section-title mx-auto">全年能看，夏季更值得追。</h2><p class="section-copy mx-auto mt-5 max-w-2xl">官方資訊通常建議 6 月至 9 月為二寮較佳觀日季節。真正的好景仍由前一日降雨、清晨雲量、濕度與風勢共同決定——以下再依台南丘陵地區的常年氣候特徵，整理四季遊覽策略。</p></div>
       <div class="reveal mt-12 overflow-hidden rounded-3xl border border-sand-200">
         <div class="grid grid-cols-4 text-center text-xs font-extrabold sm:text-sm">
           <div class="bg-sand-50 px-2 py-5"><p class="text-forest-700">1–3 月</p><p class="mt-1 text-xs font-medium text-forest-700/55">清涼、多變</p></div>
@@ -303,6 +458,152 @@ const jsonLd = [
           <div class="border-l border-sand-200 bg-sand-50 px-2 py-5"><p class="text-forest-700">10–12 月</p><p class="mt-1 text-xs font-medium text-forest-700/55">較乾、看天氣</p></div>
         </div>
       </div>
+
+      <div class="mt-6 grid gap-5 lg:grid-cols-2">
+        {[
+          {
+            season: '春・3–5 月',
+            icon: 'droplet',
+            climate: '鋒面活躍、天氣多變，降雨日數漸增。',
+            scene: '雨後水氣豐富，晨霧與雲海出現機會較高，但降雨風險同步增加。',
+            prep: '雨具與備案行程備妥，前一晚緊盯預報與官方即時影像。'
+          },
+          {
+            season: '夏・6–9 月',
+            icon: 'sun',
+            climate: '午後對流旺盛、須留意颱風訊息；日出時間早（約 05:10–05:30）。',
+            scene: '官方建議的主要觀賞季，水氣與光影變化豐富，雲海機率相對高。',
+            prep: '需要更早出發；防午後陣雨，出發前確認颱風與豪雨特報。'
+          },
+          {
+            season: '秋・10–11 月',
+            icon: 'wind',
+            climate: '東北季風漸強，天氣型態相對穩定。',
+            scene: '能見度普遍較佳，惡地紋理與山稜線條清晰，適合廣角全景。',
+            prep: '早晚溫差漸大，備防風外套；留意東北季風帶來的快速變天。'
+          },
+          {
+            season: '冬・12–2 月',
+            icon: 'cloud',
+            climate: '冷高壓型天氣常見，晴朗穩定、輻射冷卻明顯。',
+            scene: '谷地晨霧易在輻射冷卻下形成，是攝影者偏好的季節之一。',
+            prep: '清晨低溫可能接近 10°C 或更低，禦寒衣物與熱飲必備。'
+          }
+        ].map((item) => (
+          <article class="paper-card reveal p-6 sm:p-7">
+            <div class="flex items-center gap-4">
+              <span class="grid size-11 place-items-center rounded-full bg-forest-900 text-sun-300"><Icon name={item.icon as any} size={20} /></span>
+              <h3 class="font-serif text-2xl font-bold">{item.season}</h3>
+            </div>
+            <dl class="mt-5 space-y-3 text-sm leading-7">
+              <div><dt class="font-extrabold text-forest-900">氣候特徵</dt><dd class="mt-0.5 text-forest-700">{item.climate}</dd></div>
+              <div><dt class="font-extrabold text-forest-900">觀景機會</dt><dd class="mt-0.5 text-forest-700">{item.scene}</dd></div>
+              <div><dt class="font-extrabold text-forest-900">行前準備</dt><dd class="mt-0.5 text-forest-700">{item.prep}</dd></div>
+            </dl>
+          </article>
+        ))}
+      </div>
+      <p class="reveal mt-8 text-center text-xs leading-6 text-forest-700/60">四季策略為依常年氣候整理的一般性參考，並非天氣預報；實際情況請以出發前的預報與官方即時影像為準。</p>
+    </div>
+  </section>
+
+  <section id="plans" class="bg-sand-100 py-20 sm:py-32">
+    <div class="site-container">
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow"><Icon name="route" size={16} /> 遊程規劃</p>
+        <h2 class="section-title">依同行的人，調整你的清晨。</h2>
+        <p class="section-copy mt-6">三種常見的出行組合，各有不同的節奏與準備方式；決定節奏之後，再依停留時間選擇半日或全日路線。</p>
+      </div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {[
+          {
+            icon: 'sun',
+            tag: '親子家庭',
+            title: '把安全與保暖放第一',
+            items: [
+              '前一晚提早休息，鬧鐘設兩段備援',
+              '洋蔥式穿搭：山區凌晨體感明顯低於市區',
+              '不必搶最前排，視野與安全優先即可',
+              '帶保溫瓶熱飲與小點，日出後即可收隊'
+            ]
+          },
+          {
+            icon: 'aperture',
+            tag: '攝影自然',
+            title: '為光線而生的行程',
+            items: [
+              '出發前查雲量、濕度與前一日降雨',
+              '提早抵達選定機位，腳架不占通道',
+              '日出後多留 30–60 分鐘拍斜射光與竹林',
+              '白天順遊草山月世界，惡地光影同樣精彩'
+            ]
+          },
+          {
+            icon: 'car',
+            tag: '低體力・無障礙',
+            title: '車輛直達，步行極短',
+            items: [
+              '觀日亭緊鄰停車區，步行距離短、不必爬山',
+              '避開連假尖峰與交管時段，體驗更從容',
+              '結伴同行，攜手電筒與保暖衣物',
+              '現場坡道與設施狀況可先向管理單位確認'
+            ]
+          }
+        ].map((plan) => (
+          <article class="paper-card reveal p-6 sm:p-7">
+            <div class="flex items-center justify-between gap-4">
+              <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name={plan.icon as any} size={22} /></span>
+              <span class="rounded-full bg-forest-900/5 px-3 py-1.5 text-xs font-extrabold text-forest-700">{plan.tag}</span>
+            </div>
+            <h3 class="mt-5 font-serif text-2xl font-bold">{plan.title}</h3>
+            <ul class="mt-4 space-y-3 text-sm leading-7 text-forest-700">
+              {plan.items.map((item) => (
+                <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-14 grid gap-5 lg:grid-cols-2">
+        <article class="paper-card reveal p-7 sm:p-8">
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="font-serif text-2xl font-bold">半日路線</h3>
+            <p class="text-xs font-extrabold tracking-widest text-sun-500">約 8 小時</p>
+          </div>
+          <ol class="mt-6 space-y-4">
+            {[
+              ['03:30', '臺南市區出發，車程約 50–60 分鐘'],
+              ['04:30', '抵達二寮，停車就位、適應黑暗'],
+              ['05:00–06:30', '天光、日出與斜射光（隨季節浮動）'],
+              ['07:00', '回程至新化或左鎮用早餐'],
+              ['09:00', '參觀左鎮化石園區（開館時間依園區公告）'],
+              ['12:00 前', '賦歸，午後補眠']
+            ].map(([time, act]) => (
+              <li class="flex gap-4 text-sm leading-7"><span class="w-24 shrink-0 font-extrabold text-forest-900">{time}</span><span class="text-forest-700">{act}</span></li>
+            ))}
+          </ol>
+        </article>
+        <article class="paper-card reveal p-7 sm:p-8">
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="font-serif text-2xl font-bold">全日路線</h3>
+            <p class="text-xs font-extrabold tracking-widest text-sun-500">約 15 小時</p>
+          </div>
+          <ol class="mt-6 space-y-4">
+            {[
+              ['上午', '同半日路線：日出、早餐與化石園區'],
+              ['12:30', '左鎮或新化午餐'],
+              ['14:00', '草山月世界惡地巡禮（鄉道沿線慢行）'],
+              ['16:30', '左鎮山區高地視野遠眺與夕陽'],
+              ['18:30', '晚餐後返程，避免疲勞駕駛']
+            ].map(([time, act]) => (
+              <li class="flex gap-4 text-sm leading-7"><span class="w-24 shrink-0 font-extrabold text-forest-900">{time}</span><span class="text-forest-700">{act}</span></li>
+            ))}
+          </ol>
+        </article>
+      </div>
+      <p class="reveal mt-6 text-xs leading-6 text-forest-700/60">路線時間以臺南市區出發與夏季日出估算，請依當季日出與交通狀況調整；各館區與景點開放時間以管理單位公告為準。</p>
     </div>
   </section>
 
@@ -315,6 +616,58 @@ const jsonLd = [
           <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[.055] px-5 py-4"><span class="grid size-8 place-items-center rounded-full bg-sun-400 text-sm font-black text-forest-950">{index + 1}</span><span class="font-bold">{place}</span></li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <section id="stewardship" class="bg-white py-20 sm:py-28">
+    <div class="site-container">
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow"><Icon name="mountain" size={16} /> 科普與責任</p>
+        <h2 class="section-title">看懂這片風景，再談守護它。</h2>
+        <p class="section-copy mt-6">二寮的景色由地質、水氣與人文歷史共同構成。多認識一分背景，這趟清晨旅程也會更有分量。</p>
+      </div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {[
+          {
+            icon: 'mountain',
+            title: '月世界的由來',
+            copy: '二寮所在的丘陵屬古亭坑層泥岩地層。泥岩顆粒細密、透水性差，雨水沖蝕後形成草木難以著生的惡地地形，外貌彷彿月球表面，「月世界」之名由此而來。'
+          },
+          {
+            icon: 'shield',
+            title: '菜寮溪與左鎮化石',
+            copy: '左鎮菜寮溪流域是臺灣最重要的化石出土區之一，曾發現距今數千年的「左鎮人」與早坂犀牛等古生物遺骸；相關典藏可於左鎮化石園區參觀。'
+          },
+          {
+            icon: 'sun',
+            title: '西拉雅與「寮」',
+            copy: '左鎮一帶是西拉雅族的傳統生活領域；「二寮」這類帶「寮」字的地名，一般認為源自早年拓墾時期依序搭建的草寮，見證先民在惡地之間落腳的歷程。'
+          }
+        ].map((item) => (
+          <article class="paper-card reveal p-6 sm:p-7">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name={item.icon as any} size={22} /></span>
+            <h3 class="mt-5 font-serif text-xl font-bold">{item.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-forest-700">{item.copy}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="reveal mt-10 rounded-3xl bg-forest-900 p-7 text-white sm:p-9">
+        <h3 class="font-serif text-2xl font-bold">訪客責任：把美好留給下一位追光的人</h3>
+        <ul class="mt-6 grid gap-x-10 gap-y-4 text-sm leading-7 text-white/70 sm:grid-cols-2">
+          {[
+            '垃圾隨手帶走，不留任何物品於觀景平台與邊坡。',
+            '不跨越護欄、不進入未開放區域；惡地邊坡鬆軟濕滑。',
+            '夜間行車減速慢行、會車禮讓，停放車輛不阻礙居民進出。',
+            '保持音量，尊重凌晨仍在休息的鄰近聚落。',
+            '不採摘植物、不餵食野生動物、不帶走化石或土壤。',
+            '教導同行孩童同樣的守則，讓好習慣延續。'
+          ].map((rule) => (
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>{rule}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 

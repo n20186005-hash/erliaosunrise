@@ -1,0 +1,18 @@
+# Cloudflare Workers 手動部署時，不需要上傳的文件
+# （本檔案放置於 public/，構建後位於 dist/ 根目錄，wrangler 會自動讀取且不會上傳此檔本身）
+
+# 作業系統與編輯器殘留
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# 開發用文件與暫存
+*.md
+*.log
+*.tmp
+*.bak
+*.orig
+
+# 不需上傳的建置產物
+*.map

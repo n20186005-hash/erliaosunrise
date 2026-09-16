@@ -4,12 +4,22 @@
 
 主要內容：
 - 下一次日出、天光與建議抵達時間
+- 即時天氣與未來一週預報、觀景指數
+- 智慧出行建議：依天氣自動生成出行穿搭、遊玩安排、隨身物品與風險提醒（僅顯示命中項目）
 - 清晨雲量、濕度、風速、能見度與降雨機率
 - 官方即時影像入口
 - 自駕、停車與導航資訊
+- 訪客服務與周邊設施類型概覽（廁所、停車、餐飲、住宿、商超、加油充電）
+- 四季遊覽策略與半日／全日路線
+- 親子、攝影、低體力無障礙等族群遊程建議
+- 月世界地質、菜寮溪化石與西拉雅人文科普
 - 攝影與季節提示
 
 官方資料來源：
 - https://www.siraya-nsa.gov.tw/zh-tw/attractions/detail/30
 - https://www.siraya-nsa.gov.tw/zh-tw/service/live-camera/1
 - https://www.twtainan.net/zh-tw/attractions/detail/569/
+
+評價資料：
+- Google 地圖評分 4.5 分（5,213 則用戶評價），同步時間 2026 年 9 月
+- 評價來源：https://maps.app.goo.gl/KVSX2Gm83RceQEGh6

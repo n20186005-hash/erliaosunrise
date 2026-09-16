@@ -34,6 +34,7 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url.origin);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
@@ -46,7 +47,7 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url.origin);
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="二寮日出與晨霧景觀" />
+    <meta property="og:image:alt" content="台南二寮觀日亭（臺南市左鎮區）日出與晨霧景觀" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -69,6 +70,12 @@ const imageUrl = new URL(image, Astro.site ?? Astro.url.origin);
         });
       }, { threshold: 0.12 });
       document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+
+      if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
   </body>
 </html>
