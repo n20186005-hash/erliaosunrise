@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import TopicLinks from '../components/TopicLinks.astro';
+import ConditionsPanel from '../components/ConditionsPanel.astro';
+
+const title = '二寮觀日亭天氣與雲海｜觀景條件與指數說明';
+const description = '說明台南二寮觀日亭的觀景條件指標：雲量、濕度、風速、能見度如何影響日出與雲海機會，以及觀景指數的計算邏輯與限制。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '二寮觀日亭天氣與雲海',
+    url: 'https://erliaosunrise.com/weather/',
+    isPartOf: { '@type': 'WebSite', name: '二寮日出指南', url: 'https://erliaosunrise.com/' },
+    about: { '@type': 'TouristAttraction', name: '台南二寮觀日亭' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://erliaosunrise.com/' },
+      { '@type': 'ListItem', position: 2, name: '二寮觀日亭天氣與雲海', item: 'https://erliaosunrise.com/weather/' }
+    ]
+  }
+];
+---
+<BaseLayout title={title} description={description} canonical="/weather/" jsonLd={jsonLd}>
+  <section class="bg-forest-950 pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+    <div class="site-container">
+      <nav aria-label="麵包屑" class="flex flex-wrap items-center gap-2 text-sm font-bold text-white/55">
+        <a href="/" class="hover:text-white">首頁</a>
+        <span class="text-sun-400" aria-hidden="true">→</span>
+        <span class="text-white">天氣與雲海</span>
+      </nav>
+      <p class="eyebrow mt-6"><Icon name="cloud" size={16} /> 天氣與雲海</p>
+      <h1 class="mt-5 max-w-[15ch] font-serif text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-.05em]">看懂二寮的清晨，比單看太陽更重要。</h1>
+      <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">二寮最迷人的不是太陽本身，而是陽光、山稜、低層雲霧與能見度同時配合。這頁說明本站觀景條件的指標與觀景指數的計算邏輯，幫你在出發前做出判斷。</p>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <div class="site-container">
+      <h2 class="section-title">影響觀景的關鍵指標</h2>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="cloud" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">清晨雲量</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">雲量過高會遮住日出與斜射光；但 40–75% 搭配高濕度，反而可能出現晨霧與雲海層次。</p>
+        </div>
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="droplet" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">相對濕度</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">濕度偏高代表水氣充足，是雲海與谷地霧帶形成的有利條件，也是二寮低海拔雲海的關鍵。</p>
+        </div>
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="wind" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">風速與陣風</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">風太強會吹散霧帶、體感更冷，也影響平台安全；風弱時雲霧更易停留堆積。</p>
+        </div>
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="mountain" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">能見度</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">能見度過低表示濃霧或降雨，可能遮蔽日出；適中能見度配合雲帶最有層次感。</p>
+        </div>
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="droplet" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">降雨機率</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">降雨機率偏高時，路面與平台濕滑，且雲層偏厚，見日機會下降，建議保留備案。</p>
+        </div>
+        <div class="paper-card p-6">
+          <span class="grid size-11 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="sun" size={20} /></span>
+          <h3 class="mt-4 font-serif text-xl font-bold">清晨氣溫</h3>
+          <p class="mt-3 text-sm leading-7 text-forest-700">山區凌晨體感常低於市區，冬季可能接近 10°C 或更低，影響穿搭與保暖準備。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ConditionsPanel />
+
+  <section class="bg-white py-16 sm:py-24">
+    <div class="site-container grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+      <div>
+        <p class="eyebrow"><Icon name="info" size={16} /> 觀景指數怎麼來</p>
+        <h2 class="section-title">0–100 分，是綜合判斷，不是保證。</h2>
+      </div>
+      <div class="space-y-5 text-sm leading-7 text-forest-700">
+        <p>本站的觀景指數依「下一次日出時段」的天氣組合計算：雲量、濕度、風速、能見度給予正向分數，降雨機率與雷雨、強風等狀況則扣分。分數越高，表示清晨條件越有利。</p>
+        <p>指數分為「條件值得期待（≧70）」「可以碰碰運氣（≧50）」「條件較不穩定」「不建議專程前往」四個等級，並依天氣組合自動產出穿搭、行程與隨身物品的建議。</p>
+        <p class="rounded-2xl bg-forest-900/5 p-5 text-forest-700">重要限制：觀景指數僅供行程參考，不代表一定能看到日出、雲海或斜射光。山區天氣可能快速變化，山稜遮擋也會改變現場可見時間；最可靠的做法仍是出發前查看即時影像與官方公告。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <div class="site-container">
+      <div class="reveal flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow"><Icon name="mountain" size={16} /> 雲海機會</p>
+          <h2 class="section-title">什麼時候最容易看到二寮雲海</h2>
+        </div>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        <article class="paper-card p-7">
+          <h3 class="font-serif text-2xl font-bold">較有利的條件</h3>
+          <ul class="mt-5 space-y-3 text-sm leading-7 text-forest-700">
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>前一晚有雨，隔日清晨水氣充足、濕度偏高。</li>
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>風速偏弱，霧帶得以在谷底停留堆積。</li>
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>官方建議的 6–9 月觀賞季，水氣與光影變化較豐富。</li>
+          </ul>
+        </article>
+        <article class="paper-card p-7">
+          <h3 class="font-serif text-2xl font-bold">較不利的條件</h3>
+          <ul class="mt-5 space-y-3 text-sm leading-7 text-forest-700">
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>強風或明顯颱風外圍，雲霧被吹散。</li>
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>長時間晴朗無水氣，缺乏霧帶層次。</li>
+            <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-500" aria-hidden="true"></span>濃霧或降雨機率過高，遮蔽視野且影響行車。</li>
+          </ul>
+        </article>
+      </div>
+      <p class="reveal mt-8 max-w-xl text-xs leading-6 text-forest-700/60">雲海屬於自然現象，無法保證出現；以上為依常年氣候與天氣組合整理的一般性參考。</p>
+    </div>
+  </section>
+
+  <TopicLinks current="weather" />
+</BaseLayout>

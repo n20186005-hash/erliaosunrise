@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import TopicLinks from '../components/TopicLinks.astro';
+
+const title = '二寮觀日亭即時影像｜現場直播與備用來源';
+const description = '即時觀看台南二寮觀日亭現場影像，確認谷地是否有霧、雲層厚薄與天色，並提供西拉雅國家風景區官方即時影像等備用來源。';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '二寮觀日亭即時影像',
+    url: 'https://erliaosunrise.com/live/',
+    isPartOf: { '@type': 'WebSite', name: '二寮日出指南', url: 'https://erliaosunrise.com/' },
+    about: { '@type': 'TouristAttraction', name: '台南二寮觀日亭' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://erliaosunrise.com/' },
+      { '@type': 'ListItem', position: 2, name: '二寮觀日亭即時影像', item: 'https://erliaosunrise.com/live/' }
+    ]
+  }
+];
+---
+<BaseLayout title={title} description={description} canonical="/live/" jsonLd={jsonLd}>
+  <section class="bg-forest-950 pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+    <div class="site-container">
+      <nav aria-label="麵包屑" class="flex flex-wrap items-center gap-2 text-sm font-bold text-white/55">
+        <a href="/" class="hover:text-white">首頁</a>
+        <span class="text-sun-400" aria-hidden="true">→</span>
+        <span class="text-white">即時影像</span>
+      </nav>
+      <p class="eyebrow mt-6"><Icon name="camera" size={16} /> 即時影像</p>
+      <h1 class="mt-5 max-w-[15ch] font-serif text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-.05em]">出發前，先看二寮現在的樣子。</h1>
+      <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">即時影像能直接告訴你谷地是否有霧、雲層厚薄與現場天色，比任何文字預測都即時。建議清晨與出發前各看一次。</p>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <div class="site-container">
+      <div class="grid items-center gap-4 rounded-2xl bg-white/70 px-5 py-4 text-sm font-bold text-forest-900 ring-1 ring-sand-200 sm:flex">
+        <span class="relative flex size-2.5"><span class="absolute inline-flex size-full animate-ping rounded-full bg-red-400 opacity-75"></span><span class="relative inline-flex size-2.5 rounded-full bg-red-500"></span></span>
+        影像為第三方平臺即時訊號，畫面時間以播放器顯示為準；可能因天候、設備或網路暫時中斷。
+      </div>
+
+      <div class="mt-6 overflow-hidden rounded-[2rem] border border-sand-200 bg-black shadow-[0_32px_90px_rgba(16,32,28,.18)]">
+        <div class="aspect-video">
+          <iframe
+            class="h-full w-full"
+            src="https://www.youtube.com/embed/xbojeDKjcaM?mute=1&amp;autoplay=1&amp;playsinline=1"
+            title="二寮觀日平臺即時影像"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
+      </div>
+
+      <h2 class="section-title mt-14">影像看不到時，改用這些備用來源</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <a class="paper-card flex items-center justify-between gap-4 p-6 transition hover:-translate-y-0.5" href="https://www.siraya-nsa.gov.tw/zh-tw/service/live-camera/1" target="_blank" rel="noopener noreferrer">
+          <div>
+            <p class="font-serif text-xl font-bold">西拉雅國家風景區管理處・二寮即時影像</p>
+            <p class="mt-1 text-sm text-forest-700">官方景點即時攝影機，穩定性較高。</p>
+          </div>
+          <Icon name="external" size={18} class="shrink-0 text-forest-700" />
+        </a>
+        <a class="paper-card flex items-center justify-between gap-4 p-6 transition hover:-translate-y-0.5" href="https://www.cwa.gov.tw/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <p class="font-serif text-xl font-bold">交通部中央氣象署・天氣與日出日沒</p>
+            <p class="mt-1 text-sm text-forest-700">查詢臺南地區即時天氣與日出日沒時刻。</p>
+          </div>
+          <Icon name="external" size={18} class="shrink-0 text-forest-700" />
+        </a>
+      </div>
+
+      <div class="mt-10 rounded-3xl bg-forest-900 p-7 text-white sm:p-9">
+        <h3 class="font-serif text-2xl font-bold">怎麼用即時影像判斷值不值得去</h3>
+        <ul class="mt-6 grid gap-x-10 gap-y-4 text-sm leading-7 text-white/75 sm:grid-cols-2">
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>畫面全霧：現場可能被雲霧包圍，能否見日不明朗。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>東方山稜露出深藍天空：通常表示天氣較穩定。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>谷底有明顯白色霧帶：雲海出現機會較高。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>畫面全黑但距離日出還早：屬正常，天亮前本就無光照。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <TopicLinks current="live" />
+</BaseLayout>

@@ -3,9 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ConditionsPanel from '../components/ConditionsPanel.astro';
 import SunriseNow from '../components/SunriseNow.astro';
 import Icon from '../components/Icon.astro';
+import { nextSunrises } from '../lib/sunrise';
 
-const title = '二寮觀日亭日出時間｜即時影像、雲海季節與交通停車攻略';
-const description = '【每日更新】台南二寮觀日亭（臺南左鎮）今日與明日日出時間、即時影像與現場天氣、雲海最佳月份、開車路線與停車指引，並整理草山月世界、左鎮化石園區等順遊路線。';
+const sunrises = nextSunrises(7);
+
+const title = '台南二寮觀日亭｜今日明日日出時間、即時影像與觀景機率';
+const description = '查詢台南二寮觀日亭今天、明天的日出時間、天氣預報與觀景條件，查看即時影像、雲海資訊、交通停車及最佳觀賞季節，出發前一次掌握。';
 
 const mapsShareUrl = 'https://maps.app.goo.gl/KVSX2Gm83RceQEGh6';
 const ratingSyncNote = '同步自 Google 地圖用戶評價，同步時間 2026 年 9 月；版權歸原作者與 Google 地圖所有。';
@@ -135,10 +138,10 @@ const jsonLd = [
         </div>
         <p class="mt-6 text-sm font-extrabold tracking-[0.22em] text-sun-300">臺南市左鎮區・二寮觀日平臺</p>
         <h1 class="mt-4">
-          <span class="block font-serif text-[clamp(1.35rem,4.4vw,2.15rem)] font-bold leading-[1.2] tracking-[-.01em] text-sun-300">台南二寮觀日亭・今日日出時間</span>
-          <span class="mt-3 block max-w-[9ch] font-serif text-[clamp(2.9rem,8.6vw,6rem)] font-bold leading-[1] tracking-[-.06em] text-white">天亮以前，先來二寮。</span>
+          <span class="block font-serif text-[clamp(2.4rem,7.4vw,5rem)] font-bold leading-[1.05] tracking-[-.05em] text-white">台南二寮觀日亭</span>
+          <span class="mt-3 block font-serif text-[clamp(1.3rem,3.8vw,2rem)] font-bold leading-[1.2] tracking-[-.01em] text-sun-300">日出時間、天氣與即時影像</span>
         </h1>
-        <p class="mt-6 max-w-2xl text-base font-medium leading-8 text-white/72 sm:text-lg">在左鎮月世界的丘陵與竹林之上，等待第一道斜光穿過谷地晨霧。先看日出時間與現場條件，再決定今晚要不要出發。</p>
+        <p class="mt-6 max-w-2xl text-base font-medium leading-8 text-white/72 sm:text-lg">天亮以前，先來二寮。在左鎮月世界的丘陵與竹林之上，等待第一道斜光穿過谷地晨霧。先看日出時間與現場條件，再決定今晚要不要出發。</p>
         <SunriseNow />
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <a class="sun-button" href="#conditions"><Icon name="sunrise" size={19} />查看明早觀景條件</a>
@@ -164,12 +167,39 @@ const jsonLd = [
 
   <ConditionsPanel />
 
+  <section id="sunrise-time" class="bg-white py-20 sm:py-28">
+    <div class="site-container">
+      <div class="reveal flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow"><Icon name="sunrise" size={16} /> 日出時間總覽</p>
+          <h2 class="section-title">二寮觀日亭，未來一週的日出時刻。</h2>
+        </div>
+        <a class="sun-button shrink-0" href="/sunrise-time/"><Icon name="clock" size={18} />查看未來 14 天日出時間</a>
+      </div>
+
+      <p class="reveal mt-6 max-w-2xl text-sm leading-7 text-forest-700">以下時間依二寮觀日亭座標（22.9927°N, 120.4099°E）計算，時區 UTC+8，為天文日出概估值；山稜遮擋可能使現場可見太陽的時間略晚。實際出發前請再以官方日出日沒時刻與即時影像確認。</p>
+
+      <div class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {sunrises.map((day) => (
+          <article class="paper-card reveal flex items-center justify-between gap-4 p-6">
+            <div>
+              <p class="text-xs font-extrabold tracking-widest text-sun-500">{day.label}</p>
+              <p class="mt-1 font-serif text-lg font-bold text-forest-900">{day.dateLabel}</p>
+            </div>
+            <p class="font-serif text-3xl font-bold text-forest-900">{day.time}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section id="live" class="bg-forest-950 py-20 text-white sm:py-28">
     <div class="site-container">
       <div class="reveal flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p class="eyebrow"><Icon name="camera" size={16} /> 二寮即時影像</p>
           <h2 class="section-title text-white">二寮觀日亭即時影像與氣候現況</h2>
+          <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-sun-300 underline decoration-white/25 underline-offset-4 hover:text-sun-400" href="/live/">開啟即時影像專頁 <Icon name="chevron" size={15} /></a>
         </div>
         <p class="max-w-md text-sm leading-7 text-white/58">出發前先看此刻的二寮：確認谷地是否有霧、雲層厚薄與現場天色。影像可能因天候、設備或網路狀況暫時中斷，畫面時間請以播放器顯示為準。</p>
       </div>

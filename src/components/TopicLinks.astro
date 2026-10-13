@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  current?: 'sunrise-time' | 'live' | 'weather' | 'transportation';
+}
+
+const { current } = Astro.props;
+
+const topics = [
+  {
+    id: 'sunrise-time',
+    icon: 'clock',
+    title: '日出時間',
+    desc: '未來 14 天日出時刻與建議抵達',
+    href: '/sunrise-time/'
+  },
+  {
+    id: 'live',
+    icon: 'camera',
+    title: '即時影像',
+    desc: '現場直播畫面與備用來源',
+    href: '/live/'
+  },
+  {
+    id: 'weather',
+    icon: 'cloud',
+    title: '天氣與雲海',
+    desc: '觀景條件、雲量與雲海機會',
+    href: '/weather/'
+  },
+  {
+    id: 'transportation',
+    icon: 'route',
+    title: '交通停車',
+    desc: '怎麼去、停車與夜間山路',
+    href: '/transportation/'
+  }
+] as const;
+---
+<section class="bg-sand-100 py-16 sm:py-20">
+  <div class="site-container">
+    <p class="eyebrow"><Icon name="info" size={16} /> 規劃你的清晨</p>
+    <h2 class="section-title mt-3">相關頁面</h2>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {topics.map((topic) => {
+        const active = topic.id === current;
+        return (
+          <a
+            href={topic.href}
+            class:list={[
+              'paper-card reveal flex flex-col gap-3 p-6 transition hover:-translate-y-0.5',
+              active && 'ring-2 ring-sun-400'
+            ]}
+            aria-current={active ? 'page' : undefined}
+          >
+            <span class="grid size-11 place-items-center rounded-full bg-forest-900 text-sun-300"><Icon name={topic.icon as any} size={20} /></span>
+            <p class="font-serif text-xl font-bold">{topic.title}</p>
+            <p class="text-sm leading-6 text-forest-700">{topic.desc}</p>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

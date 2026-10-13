@@ -15,10 +15,10 @@ const currentPath = Astro.url.pathname;
     </a>
 
     <nav class="hidden items-center gap-7 text-sm font-bold text-white/80 lg:flex" aria-label="主要導覽">
-      <a class="transition hover:text-white" href={currentPath === '/' ? '#conditions' : '/#conditions'}>明早條件</a>
-      <a class="transition hover:text-white" href={currentPath === '/' ? '#guide' : '/#guide'}>觀日攻略</a>
-      <a class="transition hover:text-white" href={currentPath === '/' ? '#transport' : '/#transport'}>交通停車</a>
-      <a class="transition hover:text-white" href={currentPath === '/' ? '#photography' : '/#photography'}>攝影提示</a>
+      <a class="transition hover:text-white" href="/sunrise-time/">日出時間</a>
+      <a class="transition hover:text-white" href="/live/">即時影像</a>
+      <a class="transition hover:text-white" href="/weather/">天氣與雲海</a>
+      <a class="transition hover:text-white" href="/transportation/">交通停車</a>
       <a class="sun-button !min-h-10 !px-5 !py-2" href="https://www.google.com/maps/dir/?api=1&destination=22.9927444%2C120.4098726&travelmode=driving" target="_blank" rel="noopener noreferrer">
         <Icon name="route" size={17} />
         開始導航
@@ -32,9 +32,12 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <nav id="mobile-nav" class="site-container mb-3 hidden rounded-3xl border border-white/15 bg-forest-950/95 p-3 text-white shadow-2xl backdrop-blur-xl lg:hidden" aria-label="行動版導覽">
-    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#conditions">明早條件</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/sunrise-time/">日出時間</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/live/">即時影像</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/weather/">天氣與雲海</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/transportation/">交通停車</a>
+    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#conditions">明早觀景條件</a>
     <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#guide">觀日攻略</a>
-    <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#transport">交通停車</a>
     <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#services">服務設施</a>
     <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#plans">遊程規劃</a>
     <a class="block rounded-2xl px-4 py-3 font-bold hover:bg-white/10" href="/#photography">攝影提示</a>

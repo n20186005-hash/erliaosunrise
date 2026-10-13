@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import TopicLinks from '../components/TopicLinks.astro';
+
+const title = '二寮觀日亭怎麼去｜交通、停車與夜間山路';
+const description = '台南二寮觀日亭自駕與大眾運輸方式、停車與步行提醒、夜間山路注意事項，以及官方交通管制查詢，出發追光前一次掌握。';
+
+const coords = '22.9927444, 120.4098726';
+const mapsShareUrl = 'https://maps.app.goo.gl/KVSX2Gm83RceQEGh6';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '二寮觀日亭怎麼去',
+    url: 'https://erliaosunrise.com/transportation/',
+    isPartOf: { '@type': 'WebSite', name: '二寮日出指南', url: 'https://erliaosunrise.com/' },
+    about: { '@type': 'TouristAttraction', name: '台南二寮觀日亭' }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: 'https://erliaosunrise.com/' },
+      { '@type': 'ListItem', position: 2, name: '二寮觀日亭怎麼去', item: 'https://erliaosunrise.com/transportation/' }
+    ]
+  }
+];
+---
+<BaseLayout title={title} description={description} canonical="/transportation/" jsonLd={jsonLd}>
+  <section class="bg-forest-950 pb-16 pt-32 text-white sm:pb-24 sm:pt-40">
+    <div class="site-container">
+      <nav aria-label="麵包屑" class="flex flex-wrap items-center gap-2 text-sm font-bold text-white/55">
+        <a href="/" class="hover:text-white">首頁</a>
+        <span class="text-sun-400" aria-hidden="true">→</span>
+        <span class="text-white">交通停車</span>
+      </nav>
+      <p class="eyebrow mt-6"><Icon name="route" size={16} /> 交通與停車</p>
+      <h1 class="mt-5 max-w-[15ch] font-serif text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-.05em]">二寮觀日亭，怎麼去最順。</h1>
+      <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">二寮位在臺南左鎮山區，為了配合日出，自駕、計程車或包車最實際。這頁整理路線、停車與夜間行車注意，幫你把路線準備在前一晚。</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a class="sun-button" href={`https://www.google.com/maps/dir/?api=1&destination=${coords}&travelmode=driving`} target="_blank" rel="noopener noreferrer"><Icon name="mapPin" size={18} />Google Maps 導航至觀日平臺</a>
+        <a class="outline-button" href={mapsShareUrl} target="_blank" rel="noopener noreferrer"><Icon name="external" size={16} />在 Google 地圖查看景點</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-sand-50 py-16 sm:py-24">
+    <div class="site-container">
+      <div class="grid gap-5 lg:grid-cols-2">
+        <article class="paper-card p-7 sm:p-8">
+          <div class="flex items-center gap-4">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="car" size={22} /></span>
+            <h2 class="font-serif text-2xl font-bold">自駕前往</h2>
+          </div>
+          <p class="mt-5 text-sm leading-7 text-forest-700">建議直接導航至座標 <strong>22.9927444, 120.4098726</strong>，比輸入地址更精準，可避免被帶到山區其他同名地點。從臺南市區出發車程約 50–60 分鐘。</p>
+          <p class="mt-4 rounded-2xl bg-forest-900/5 p-4 text-xs leading-6 text-forest-700/70">夜間道路照明有限、彎道與會車處多，請降低車速，並避免單憑地址導航。</p>
+        </article>
+
+        <article class="paper-card p-7 sm:p-8">
+          <div class="flex items-center gap-4">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="mapPin" size={22} /></span>
+            <h2 class="font-serif text-2xl font-bold">停車與步行</h2>
+          </div>
+          <p class="mt-5 text-sm leading-7 text-forest-700">官方資料列有停車場與廁所，觀日亭緊鄰停車區，步行距離短、不必爬山。但容量、開放狀態與節慶交管可能變動，請依現場指示停放，勿阻礙道路與居民進出。</p>
+          <p class="mt-4 rounded-2xl bg-forest-900/5 p-4 text-xs leading-6 text-forest-700/70">日出尖峰與連假期間一位難求並可能實施交通管制，建議日出前 90 分鐘抵達。</p>
+        </article>
+
+        <article class="paper-card p-7 sm:p-8">
+          <div class="flex items-center gap-4">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="clock" size={22} /></span>
+            <h2 class="font-serif text-2xl font-bold">大眾運輸</h2>
+          </div>
+          <p class="mt-5 text-sm leading-7 text-forest-700">公車班次通常不適合追日出；若從岡林一帶步行，仍需預留山路時間並先確認回程。常見做法是夜宿臺南市區、新化或鄰近城鎮，清晨再驅車前往。</p>
+        </article>
+
+        <article class="paper-card p-7 sm:p-8">
+          <div class="flex items-center gap-4">
+            <span class="grid size-12 place-items-center rounded-2xl bg-forest-900 text-sun-300"><Icon name="shield" size={22} /></span>
+            <h2 class="font-serif text-2xl font-bold">特殊交管</h2>
+          </div>
+          <p class="mt-5 text-sm leading-7 text-forest-700">元旦、活動或道路施工期間可能實施管制。出發前查看西拉雅國家風景區管理處與臺南市最新公告，並以現場人員指引為準。</p>
+        </article>
+      </div>
+
+      <div class="mt-10 rounded-3xl bg-forest-900 p-7 text-white sm:p-9">
+        <h3 class="font-serif text-2xl font-bold">夜間山路安全提醒</h3>
+        <ul class="mt-6 grid gap-x-10 gap-y-4 text-sm leading-7 text-white/75 sm:grid-cols-2">
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>凌晨山路黑、彎道多，會車禮讓、減速慢行。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>油量或電量預留 1.5 倍餘裕，山區加油與充電點稀少。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>攜手電筒或頭燈，抵達時天色尚未全亮。</li>
+          <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>保持音量，尊重凌晨仍在休息的鄰近聚落。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <TopicLinks current="transportation" />
+</BaseLayout>
