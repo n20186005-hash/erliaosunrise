@@ -2,7 +2,7 @@ export const nearby = [
   {
     slug: 'caoshan-moon-world', name: '草山月世界', en: 'Caoshan Moon World', type: '惡地地形・自然景觀',
     summary: '以砂岩、頁岩與長年侵蝕形成的灰白丘陵聞名，和二寮晨光中的層疊山稜屬於同一片地景。',
-    address: '臺南市左鎮區南171線（草山月世界景觀帶）', maps: 'https://www.google.com/maps/search/?api=1&query=%E8%8D%89%E5%B1%B1%E6%9C%88%E4%B8%96%E7%95%8C%20%E5%8F%B0%E5%8D%97',
+    address: '臺南市左鎮區南171線（草山月世界景觀帶）', maps: 'https://maps.app.goo.gl/8rw5ksPgxJUeSiFA8',
     images: ['caoshan-1.jpg','caoshan-2.jpg'],
     source: 'https://www.twtainan.net/zh-tw/attractions/detail/624/',
     manager: '臺南市政府觀光旅遊局推動草山月世界觀光設施改善與指標更新；草山月世界是跨多處道路和觀景點的自然地景，並非一座有單一園門的封閉公園。',
@@ -101,7 +101,7 @@ export const nearby = [
   {
     slug: 'hutoupi-scenic-area', name: '虎頭埤風景區', en: 'Hutoupi Scenic Area', type: '水庫湖景・環湖散步',
     summary: '新化的歷史水庫與湖濱休憩地，可沿水岸步道看湖面、虎月吊橋和四季樹景，適合日出後放慢腳步。',
-    address: '臺南市新化區中興路42巷36號', maps: 'https://www.google.com/maps/search/?api=1&query=%E8%99%8E%E9%A0%AD%E5%9F%A4%E9%A2%A8%E6%99%AF%E5%8D%80%20%E4%B8%AD%E8%88%88%E8%B7%AF42%E5%B7%B736%E8%99%9F',
+    address: '臺南市新化區中興路42巷36號', maps: 'https://maps.app.goo.gl/tLC9mts4832ijiBY8',
     images: ['hutoupi-1.jpg', 'hutoupi-2.jpg'], source: 'https://www.twtainan.net/zh-tw/attractions/detail/562/',
     manager: '虎頭埤風景區為臺南市轄內的風景遊憩場域，園區營運及公共設施由虎頭埤風景區管理單位辦理；門票、遊憩設施及活動依官方公告。',
     managementSource: 'https://htp.tainan.gov.tw/',
@@ -220,6 +220,7 @@ export const nearbyDetails: Record<string, {
   photoSpots: { title: string; detail: string }[];
   accommodation: string; reviewContext: string; ticketTip: string;
   questions: { question: string; answer: string }[];
+  locations?: { name: string; purpose: string; maps: string }[];
 }> = {
   'zuozhen-presbyterian-church': {
     tagline: '在鐘樓與尖拱窗之間，閱讀左鎮山城百年信仰史',
@@ -278,13 +279,21 @@ export const nearbyDetails: Record<string, {
   },
   'hutoupi-scenic-area': {
     tagline: '沿臺灣歷史水庫慢行，欣賞虎月吊橋與新化湖景',
-    arrival: '以新化區中興路42巷36號的風景區入口導航，園區內外均有停車位置，實際收費與車位依現場公告。',
+    arrival: '以虎頭埤門票口規劃購票入園，開車可另查北側停車場；景區本身、售票入口與停車場是不同 Google 地圖定位，出發前依實際需求選擇。',
     transit: '可先到新化市區再查往虎頭埤的公車與接駁路線；勿假設可以從新化老街全程舒適步行。',
     highlights: ['湖面：水庫的水利歷史與樹影倒映。', '吊橋：虎月吊橋連接湖岸與島上景觀，適合觀察橋體及水岸關係。', '季節：初夏阿勃勒及親子生態展示具有季節性，活動設施需查當日營運。'],
     photoSpots: [{ title: '虎月吊橋湖岸', detail: '利用橋身引導線與湖面反光構圖，避開狹窄人行動線。' }, { title: '環湖步道轉角', detail: '選可停留的開闊位置拍樹影與湖景，不越過水邊護欄。' }],
     accommodation: '規劃二寮清晨拍攝可住新化或市區；欲使用園區露營設施應查預訂、費用與當日規定。',
     reviewContext: '評論常談步道、湖景、親子活動與票價；舊評論中的設備和收費不一定與當天相同。',
     ticketTip: '園區門票與船艇、活動等可能分開計費，請以虎頭埤管理單位現行票價為準。',
+    locations: [
+      { name: '虎頭埤', purpose: '風景區與湖景主定位，適合確認整體地理位置及近期遊客資訊。', maps: 'https://maps.app.goo.gl/tLC9mts4832ijiBY8' },
+      { name: '虎頭埤門票口', purpose: '購票入園與辨認入口動線；開放時間、票種及入場規則以現場公告為準。', maps: 'https://maps.app.goo.gl/S19ELfvHLKKHTLWU7' },
+      { name: '虎頭埤 探索露營區', purpose: '露營活動目的地；營位、預約、可使用時段與設備應先向營運單位核對。', maps: 'https://maps.app.goo.gl/d9fvZhStgNRaBwkU7' },
+      { name: '虎頭埤風景區北側停車場', purpose: '自駕停車參考點；車位、出入口及是否收費依當日標示。', maps: 'https://maps.app.goo.gl/UWJKkv8wqexWsyKS8' },
+      { name: '虎頭埤蟋蟀館', purpose: '認識新化蟋蟀文化的館舍定位；參觀前請核對展館是否開放。', maps: 'https://maps.app.goo.gl/SDzyjrTfn1QevU7n6' },
+      { name: '虎頭埤全齡式地景遊憩場', purpose: '親子及不同年齡旅客的遊憩設施定位；使用時遵守場內安全與年齡標示。', maps: 'https://maps.app.goo.gl/2qMvghj2BFSJFeR97' }
+    ],
     questions: [{ question: '虎頭埤與新化林場一樣嗎？', answer: '不是。虎頭埤以水庫湖景與環湖休憩為主，新化林場是國立中興大學管理的實驗森林，兩處分別導航及確認收費。' }, { question: '可以在湖中游泳嗎？', answer: '不可自行下水。水域活動須依園區允許的項目、時段及安全規則辦理。' }]
   },
   'xinhua-forest-station': {

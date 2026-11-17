@@ -58,6 +58,12 @@ const jsonLd = [{
       <article class="paper-card p-7 md:col-span-2 lg:col-span-3"><h3 class="font-serif text-2xl font-bold">大眾運輸與步行</h3><p class="mt-4 leading-8 text-forest-700">{detail.transit}</p><p class="mt-3 leading-8 text-forest-700">{place.access}</p><a href={place.maps} class="mt-5 inline-block font-bold underline underline-offset-4" target="_blank" rel="noopener noreferrer">前往{place.name} Google 地圖</a></article>
     </div>
   </div></section>
+  {detail.locations && <section class="bg-sand-50 py-16 sm:py-20"><div class="site-container">
+    <p class="eyebrow">景區位置與 Google 地圖</p><h2 class="section-title">虎頭埤六個實用導航地點</h2>
+    <p class="mt-5 max-w-3xl leading-8 text-forest-700">虎頭埤園區、售票口、露營區、停車場與遊憩設施各有自己的地圖位置。請依當次要去的地方點選導航，避免只用景區中心點尋找入口。</p>
+    <div class="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{detail.locations.map((location) => <article class="paper-card p-7"><h3 class="font-serif text-xl font-bold">{location.name}</h3><p class="mt-3 text-sm leading-7 text-forest-700">{location.purpose}</p><a class="mt-6 inline-flex font-bold underline underline-offset-4" href={location.maps} target="_blank" rel="noopener noreferrer" aria-label={`${location.name} Google 地圖定位`}>查看專屬 Google 地圖 ↗</a></article>)}</div>
+    <p class="mt-6 text-sm leading-7 text-forest-700">地圖為各設施的獨立定位資訊，不代表所有設施在任何時段均開放；請以管理單位及現場公告為準。</p>
+  </div></section>}
   <section class="bg-white py-16 sm:py-24"><div class="site-container">
     <p class="eyebrow">特色深讀</p><h2 class="section-title">看懂{place.name}的歷史與地景</h2>
     <div class="mt-8 grid gap-5 md:grid-cols-2"><article class="paper-card p-7"><h3 class="font-serif text-2xl font-bold">建築、地形與空間</h3><p class="mt-4 leading-8 text-forest-700">{place.architecture}</p></article><article class="paper-card p-7"><h3 class="font-serif text-2xl font-bold">人文與地方記憶</h3><p class="mt-4 leading-8 text-forest-700">{place.culture}</p></article></div>
