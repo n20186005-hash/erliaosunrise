@@ -3,8 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import TopicLinks from '../components/TopicLinks.astro';
 
-const title = '二寮觀日亭即時影像｜現場直播與備用來源';
-const description = '即時觀看台南二寮觀日亭現場影像，確認谷地是否有霧、雲層厚薄與天色，並提供西拉雅國家風景區官方即時影像等備用來源。';
+const title = '二寮觀日亭即時影像｜今天日出直播、雲海與現場天氣';
+const description = '查看二寮觀日亭即時影像與官方直播入口，判斷今天日出前的天色、谷地晨霧、雲海及天氣。另提供未來日出時間和交通攻略。';
 
 const jsonLd = [
   {
@@ -34,7 +34,7 @@ const jsonLd = [
         <span class="text-white">即時影像</span>
       </nav>
       <p class="eyebrow mt-6"><Icon name="camera" size={16} /> 即時影像</p>
-      <h1 class="mt-5 max-w-[15ch] font-serif text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-.05em]">出發前，先看二寮現在的樣子。</h1>
+      <h1 class="mt-5 max-w-[15ch] font-serif text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-.05em]">二寮觀日亭即時影像：日出與雲海現場畫面。</h1>
       <p class="mt-7 max-w-2xl text-base leading-8 text-white/62">即時影像能直接告訴你谷地是否有霧、雲層厚薄與現場天色，比任何文字預測都即時。建議清晨與出發前各看一次。</p>
     </div>
   </section>
@@ -42,7 +42,7 @@ const jsonLd = [
   <section class="bg-sand-50 py-16 sm:py-24">
     <div class="site-container">
       <div class="grid items-center gap-4 rounded-2xl bg-white/70 px-5 py-4 text-sm font-bold text-forest-900 ring-1 ring-sand-200 sm:flex">
-        <span class="relative flex size-2.5"><span class="absolute inline-flex size-full animate-ping rounded-full bg-red-400 opacity-75"></span><span class="relative inline-flex size-2.5 rounded-full bg-red-500"></span></span>
+        <span class="inline-flex size-2.5 rounded-full bg-sun-400" aria-hidden="true"></span>
         影像為第三方平臺即時訊號，畫面時間以播放器顯示為準；可能因天候、設備或網路暫時中斷。
       </div>
 
@@ -87,6 +87,7 @@ const jsonLd = [
           <li class="flex gap-2.5"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-sun-400" aria-hidden="true"></span>畫面全黑但距離日出還早：屬正常，天亮前本就無光照。</li>
         </ul>
       </div>
+      <div class="mt-9 grid gap-4 sm:grid-cols-2"><a class="paper-card p-6 font-bold underline" href="/sunrise-time/">今明二寮日出時間與建議抵達</a><a class="paper-card p-6 font-bold underline" href="/sunrise-guide/">二寮日出完整攻略與攝影建議</a></div>
     </div>
   </section>
 
