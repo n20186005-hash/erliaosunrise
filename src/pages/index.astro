@@ -640,10 +640,10 @@ const jsonLd = [
   <section class="relative overflow-hidden bg-forest-900 py-20 text-white sm:py-28">
     <div class="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_center,rgba(238,181,90,.12),transparent_65%)]"></div>
     <div class="site-container relative grid gap-10 lg:grid-cols-[1fr_.8fr] lg:items-center">
-      <div class="reveal"><p class="eyebrow"><Icon name="route" size={16} /> 日出之後</p><h2 class="section-title text-white">別急著回市區，把左鎮排成半日旅行。</h2><p class="mt-6 max-w-2xl text-base leading-8 text-white/62">看完日出後，可接著前往草山月世界、左鎮化石園區，再到新化吃早餐或午餐。二寮本身停留不長，周邊路線才讓早起更值得。</p></div>
+      <div class="reveal"><p class="eyebrow"><Icon name="route" size={16} /> 日出之後</p><h2 class="section-title text-white">別急著回市區，把左鎮排成半日旅行。</h2><p class="mt-6 max-w-2xl text-base leading-8 text-white/62">看完日出後，可接著前往草山月世界、左鎮化石園區，再到新化吃早餐或午餐。二寮本身停留不長，周邊路線才讓早起更值得。</p><a class="sun-button mt-7" href="/nearby/">探索周邊景點與獨立指南</a></div>
       <ol class="reveal grid gap-3">
-        {['二寮觀日平臺・日出', '草山月世界・惡地景觀', '左鎮化石園區・親子參觀', '新化老街・早餐與散步'].map((place, index) => (
-          <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[.055] px-5 py-4"><span class="grid size-8 place-items-center rounded-full bg-sun-400 text-sm font-black text-forest-950">{index + 1}</span><span class="font-bold">{place}</span></li>
+        {[[ '二寮觀日平臺・日出', '/' ], [ '草山月世界・惡地景觀', '/nearby/caoshan-moon-world/' ], [ '左鎮化石園區・親子參觀', '/nearby/zuozhen-fossil-park/' ], [ '新化老街・早餐與散步', '/nearby/xinhua-old-street/' ]].map(([place, href], index) => (
+          <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[.055] px-5 py-4"><span class="grid size-8 place-items-center rounded-full bg-sun-400 text-sm font-black text-forest-950">{index + 1}</span><a class="font-bold hover:underline" href={href}>{place}</a></li>
         ))}
       </ol>
     </div>
