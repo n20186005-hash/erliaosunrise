@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ConditionsPanel from '../components/ConditionsPanel.astro';
+const title = '二寮日出攻略｜最佳季節、幾點到、拍攝位置與交通準備';
+const description = '第一次去二寮觀日亭看日出？從日出前抵達時間、6至9月觀景季節、天氣與雲海判斷、拍攝構圖到夜間山路及周邊路線，一篇規劃完整行程。';
+const faqs = [
+  ['二寮日出要幾點到？','建議比當日天文日出早60至90分鐘抵達，預留停車、步行與天色變化的時間。'],
+  ['二寮日出最佳季節？','西拉雅國家風景區介紹以6至9月為較佳觀賞時期，但晴朗、雲量與能見度仍會直接影響結果。'],
+  ['下雨後一定有雲海嗎？','不一定。水氣、風速、雲底高度與能見度必須配合，請搭配即時影像判斷。'],
+  ['觀日亭與觀日平臺是同一個地方嗎？','兩種稱呼在旅遊資訊中常被用於二寮日出觀賞區，導航請直接使用本站提供的二寮觀日平臺 Google 地圖連結。']
+];
+const jsonLd = [{ '@context':'https://schema.org','@type':'Article', headline:title, description, mainEntityOfPage:'https://erliaosunrise.com/sunrise-guide/', about:{'@type':'TouristAttraction',name:'二寮觀日亭'} },{ '@context':'https://schema.org','@type':'FAQPage',mainEntity:faqs.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}})) }];
+---
+<BaseLayout title={title} description={description} canonical="/sunrise-guide/" jsonLd={jsonLd}>
+ <section class="bg-forest-950 pb-20 pt-32 text-white sm:pt-40"><div class="site-container"><nav class="text-sm text-white/60"><a href="/">首頁</a> / 二寮日出攻略</nav><p class="eyebrow mt-7"><Icon name="sunrise" size={16}/> 第一次追光</p><h1 class="mt-5 max-w-4xl font-serif text-[clamp(2.6rem,7vw,5rem)] font-bold leading-tight">二寮日出攻略：從天黑到天亮，怎麼安排？</h1><p class="mt-6 max-w-3xl text-lg leading-8 text-white/70">出發前先確認時間與直播，沿山路安全抵達，站穩了再看山谷逐漸亮起。這份攻略把最重要的決策整理成可以照著走的步驟。</p><div class="mt-8 flex flex-wrap gap-3"><a class="sun-button" href="/sunrise-time/">查看未來14天日出</a><a class="outline-button" href="/live/">看二寮即時影像</a></div></div></section>
+ <section class="bg-sand-50 py-16 sm:py-24"><div class="site-container"><h2 class="section-title">行前的四個判斷</h2><div class="mt-9 grid gap-5 md:grid-cols-2">{[
+ ['日出時間','先查當日天文日出時間，依時間反推抵達與出門時刻。丘陵遮擋可能讓看見太陽的時間略晚。','/sunrise-time/'],
+ ['天氣、雲海機會','看雲量、雨勢、風速和能見度，別把觀景指數當成保證出現雲海的百分比。','/weather/'],
+ ['現場直播','天黑時鏡頭可能幾乎沒有畫面；天亮前後更有利於觀察霧帶與天空缺口。','/live/'],
+ ['交通與停車','清晨山路彎道多，先設定觀日亭專屬地圖，安排回程與補給，不在路肩任意停車。','/transportation/']
+ ].map(([heading,copy,href],i)=><article class="paper-card p-7"><p class="font-serif text-3xl font-bold text-sun-500">0{i+1}</p><h3 class="mt-3 font-serif text-2xl font-bold">{heading}</h3><p class="mt-3 text-sm leading-7 text-forest-700">{copy}</p><a class="mt-5 inline-block font-bold underline" href={href}>查看專題說明</a></article>)}</div></div></section>
+ <ConditionsPanel />
+ <section class="bg-white py-16 sm:py-24"><div class="site-container grid gap-10 lg:grid-cols-2"><div><p class="eyebrow">現場觀察</p><h2 class="section-title">什麼季節去比較好？</h2><p class="mt-5 leading-8 text-forest-700">西拉雅國家風景區管理處以每年6至9月為二寮日出較佳觀賞季節。這不代表其他月份看不到日出；冬季日出較晚，但雲層、雨勢、風與晨霧仍是關鍵。若遇雷雨、強風或道路管制，安全優先，改期比勉強上山更好。</p><a class="mt-5 inline-block font-bold underline" href="https://www.siraya-nsa.gov.tw/zh-tw/attractions/detail/30" target="_blank" rel="noopener noreferrer">西拉雅管理處景點資料</a></div><div><h2 class="section-title">拍攝順序與機位</h2><ol class="mt-6 list-decimal space-y-4 pl-5 leading-8 text-forest-700"><li>先利用觀日平臺的安全位置構圖，讓山稜與霧帶成為畫面前景。</li><li>天色漸亮時先拍雲霧與色溫變化，不必只等待太陽出現。</li><li>日輪接近山稜時縮小曝光、避免長時間直視強光。</li><li>日出後用側光拍竹林與惡地紋理，尊重護欄及其他遊客。</li></ol></div></div></section>
+ <section class="bg-sand-100 py-16"><div class="site-container"><h2 class="section-title">當天的建議流程</h2><ol class="mt-8 grid gap-4 md:grid-cols-3">{[['前一晚','查天氣、道路公告，確認燃油與回程，準備薄外套、手電筒及水。'],['日出前 60–90 分鐘','抵達合法停車位置，慢行至觀景區，避免在暗處跨越護欄。'],['日出後','視體力安排早餐，再順遊草山月世界、左鎮化石園區或新化老街。']].map(([time,desc])=><li class="paper-card p-6"><h3 class="font-serif text-xl font-bold">{time}</h3><p class="mt-3 text-sm leading-7 text-forest-700">{desc}</p></li>)}</ol><a class="sun-button mt-9" href="/nearby/">探索日出後的周邊景點</a></div></section>
+ <section class="bg-white py-16"><div class="site-container"><h2 class="section-title">二寮日出常見問題</h2><div class="mt-8 grid gap-4">{faqs.map(([q,a])=><details class="paper-card p-6"><summary class="cursor-pointer font-bold">{q}</summary><p class="mt-3 leading-7 text-forest-700">{a}</p></details>)}</div></div></section>
+</BaseLayout>
